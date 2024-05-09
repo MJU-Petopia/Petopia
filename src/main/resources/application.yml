@@ -1,0 +1,46 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      enabled: true
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 270761112685766
+            client-secret: 80152aabf1ad9f18856469b7a9bc4bbc
+            scope: public_profile,email
+
+          google:
+            client-id: 1052746968661-ginv6vvigpgh3558aas1s2f8ea93qh1p.apps.googleusercontent.com
+            client-secret: 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
+            scope: email, profile
+  application:
+    name: petopia
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://petopia.chky4w6ckwff.ap-southeast-2.rds.amazonaws.com:3306/petopia?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: petopia_admin
+    password: petopia12345
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+
+
+
+
+
+
+
