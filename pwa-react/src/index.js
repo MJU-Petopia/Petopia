@@ -15,6 +15,12 @@ import ScheduleAdd_2 from './pages/SchedulePage/ScheduleAdd_2';
 import ScheduleAdd_3 from './pages/SchedulePage/ScheduleAdd_3';
 import ScheduleAdd_4 from './pages/SchedulePage/ScheduleAdd_4';
 import ScheduleAdd_5 from './pages/SchedulePage/ScheduleAdd_5';
+import AddpetPage from './pages/AddpetPage';
+import PetDetailPage from './pages/PetDetailPage';
+import ProfileChangePage from './pages/ProfileChangePage';
+import BoardDetailPage from './pages/BoardDetailPage';
+import AddBoardPage from './pages/AddBoardPage';
+import ScrollToTop from './ScrollToTop';
 
 
 const store = createStore(rootReducer, composeWithDevTools());
@@ -24,6 +30,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
+      <ScrollToTop/>
       <Routes>
         <Route path='/' Component={HomePage}/>
         <Route path='/result' Component={ResultPage}/>
@@ -32,6 +39,11 @@ root.render(
         <Route path='/addschedule3' Component={ScheduleAdd_3}></Route>
         <Route path='/addschedule4' Component={ScheduleAdd_4}></Route>
         <Route path='/addschedule5' Component={ScheduleAdd_5}></Route>
+        <Route path='/addpet' Component={AddpetPage}></Route>
+        <Route path='/pet/:id' Component={PetDetailPage}></Route>
+        <Route path='/profilechange/:id' Component={ProfileChangePage}></Route>
+        <Route path='/board/:id' Component={BoardDetailPage}></Route>
+        <Route path='/addboard' Component={AddBoardPage}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>

@@ -16,7 +16,6 @@ const NavItem = styled.div`
 
 const BottomNavItem = ({text, onClick, tab, children}) => {
     const onclick = () =>{
-        console.log(`${text} clicked`)
         onClick(text)
     }
     return <NavItem tab={tab} text={text}>

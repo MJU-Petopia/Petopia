@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { IoIosArrowBack } from "react-icons/io";
 
 
+
 const Appbar = styled.div`
     position: fixed;
+    z-index: 3;
     top: 0;
     height: 55px;
     background-color: white;
@@ -23,7 +25,7 @@ const Inner = styled.div`
     position: relative;
     align-items: center;
     justify-content: ${props => props.$ishome ? "left" : "center"};
-    div {
+    .back {
         position:fixed;
         left: 10px;
     }
@@ -34,13 +36,14 @@ const AppbarComponent = ({isHome, children}) => {
     const navigate = useNavigate();
 
     return <Appbar>
-        {isHome ? <Inner $ishome={isHome}>
+        {isHome ? 
+        <Inner $ishome={isHome}>
             <CustomRoundDiv height={40} width={80}>
                 Logo
             </CustomRoundDiv>
         </Inner> 
         : <Inner $ishome={isHome}>
-                <div>
+                <div className='back'>
                     <IoIosArrowBack onClick={() => {navigate(-1)}}/>
                 </div>
                 {children}
