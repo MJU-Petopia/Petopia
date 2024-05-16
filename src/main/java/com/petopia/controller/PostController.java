@@ -21,11 +21,6 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/")
-    public String hello() {
-        return "메인화면";
-    }
-
     // 글 작성
     @PostMapping("/api/post")
     public ResponseEntity<?> postCreate(@RequestBody PostUploadDto postUploadDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
