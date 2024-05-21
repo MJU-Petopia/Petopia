@@ -1,16 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CustomRoundDiv from '../components/CustomComponents/CustomRoundDiv';
+import Resultcomponent from '../components/Result/Resultcomponent';
+import { DiseaseList } from '../List/DiseaseList';
 
-const ResultContainer = ({file}) => {
+const ResultContainer = ({species, bodypart, file}) => {
+
+    const lst = DiseaseList[species][bodypart];
+
     return (
-        <div style={{margin: '65px 10px'}}>
-            <CustomRoundDiv backgroundimage={URL.createObjectURL(file)} width={'100%'} height={200} />
-        </div>
+        <Resultcomponent file={file} lst={lst}/>
     );
 };
 
 export default connect(
     ({AIdiagnosis}) => ({
+        species: AIdiagnosis.species,
+        bodypart: AIdiagnosis.bodypart,
         file: AIdiagnosis.file
     }),{})(ResultContainer);

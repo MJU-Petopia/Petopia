@@ -45,3 +45,7 @@
 a {
   text-decoration: none;
 }
+
+.swiper-pagination-bullet-active {
+  --swiper-pagination-color: #f02b70
+}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import VaccineScheduleItem from './VaccineScheduleItem';
 import VaccineScheduleHeader from './VaccineScheduleHeader';
 import styled from 'styled-components';
