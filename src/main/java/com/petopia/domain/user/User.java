@@ -4,10 +4,12 @@ package com.petopia.domain.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.petopia.domain.pet.Pet;
 import com.petopia.domain.post.Post;
+import com.petopia.domain.vaccination.Vaccination;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,6 +39,7 @@ public class User {
     private String email;
 
     private String phone;
+
     private String gender;
 
     private String profileImageUrl;
@@ -49,6 +52,10 @@ public class User {
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"user"}) //무한참조 방지
     private List<Pet> pets; //양방향 매핑
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"user"}) //무한참조 방지
+    private List<Vaccination> Vaccinations; //양방향 매핑
 
     private LocalDateTime createDate;
 

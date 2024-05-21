@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,12 +25,12 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
-
         Map<String, Object> userInfo = oAuth2User.getAttributes();
         String username = "facebook_" + (String) userInfo.get("id");
         String password = new BCryptPasswordEncoder().encode(UUID.randomUUID().toString());
         String email = (String) userInfo.get("email");
         String name = (String) userInfo.get("name");
+        String accessToken = userRequest.getAccessToken().getTokenValue();
 
         // 페이스북 로그인이 최초인지 확인
         User userEntity = userRepository.findByUsername(username);
@@ -39,12 +40,14 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService {
                     .username(username)
                     .password(password)
                     .email(email)
+                    .gender("male")
                     .name(name)
                     .role("ROLE_USER")
                     .build();
-
+            System.out.println("accessToken=" + accessToken);
             return new PrincipalDetails(userRepository.save(user), oAuth2User.getAttributes());
         }else { // 페이스북으로 이미 회원가입 되어있음
+            System.out.println("accessToken=" + accessToken);
             return new PrincipalDetails(userEntity, oAuth2User.getAttributes());
         }
     }
