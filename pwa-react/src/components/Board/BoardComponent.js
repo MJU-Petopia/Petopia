@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import BoardItem from './BoardItem';
 import { FaPencil } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
+import LoadingComponent from '../Loading/LoadingComponent';
 
 
 const Input = styled.input`
@@ -48,15 +49,22 @@ const AddBtn = styled.div`
     right: 15px;
 `;
 
-const array = Array.from({length: 50}, (v,i) => i+1);
+const Container = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`;
 
-const BoardComponent = ({feedList, search, setSearch, timeCalculator, onAddBtnClicked}) => {
+const BoardComponent = ({feedList, search, setSearch, timeCalculator, onAddBtnClicked, loadingBoard}) => {
     return (
-        <div style={{margin: '110px 0px 55px 0'}}>
+        <div style={{margin: '110px 0px 55px 0', height: '50%'}}>
             <InputWrapper>
                 <Input type='text' placeholder='Search..'/>
             </InputWrapper>
-            {array.map(item => <Link to={`/board/${item}`} key={item} ><BoardItem timeCalculator={timeCalculator} /></Link>)}
+            <Container>
+                {loadingBoard && <LoadingComponent />}
+                {!loadingBoard && feedList && feedList.map(item => <Link to={`/board/${item.id}`} key={item.id} ><BoardItem feed={item} timeCalculator={timeCalculator} /></Link>)}
+            </Container>
             <AddBtn onClick={() => onAddBtnClicked()}>
                 <FaPencil />
             </AddBtn>

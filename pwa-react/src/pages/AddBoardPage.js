@@ -1,6 +1,6 @@
 import React from 'react';
 import AppbarComponent from '../components/AppbarComponent';
-import BoardAddComponent from '../components/Board/BoardAddComponent';
+import AddBoardContainer from '../containers/AddBoardContainer';
 
 const AddBoardPage = () => {
     return (
@@ -8,7 +8,7 @@ const AddBoardPage = () => {
             <AppbarComponent isHome={false}>
                 글쓰기
             </AppbarComponent>
-            <BoardAddComponent />
+            <AddBoardContainer />
         </>
     );
 };

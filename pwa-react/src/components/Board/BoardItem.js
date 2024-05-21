@@ -37,12 +37,12 @@ const Container = styled.div`
 const BoardItem = ({feed, timeCalculator}) => {
     return (
         <Container>
-            <div className='title'>제목</div>
-            <div className='content'>내용 한줄 미리보기 내용 한줄 미리보기 내용 한줄 비리보기 sodyd </div>
+            <div className='title'>{feed.title}</div>
+            <div className='content'>{feed.content}</div>
             <div className='additional'>
-                <div className='time'>{timeCalculator(new Date("2024-04-28"))}</div>
+                <div className='time'>{timeCalculator(new Date(feed.createDate))}</div>
                 <CustomRoundDiv margin={'0 8px 0 0'}/>
-                <span>작성자 이름</span>
+                <span>{feed.user.username}</span>
             </div>
         </Container>
     );
