@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import CustomMultipleFileInput from '../CustomComponents/CustomMultipleFileInput';
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     margin: 75px 20px 0px 20px;
@@ -52,11 +53,9 @@ const SubButtonWrapper = styled.div`
     justify-content: center;
 `;
 
-const BoardAddComponent = () => {
+const BoardAddComponent = ({title, content, file, setTitle, setContent, setFile, addFeedAsync}) => {
 
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [file, setFile] = useState([]);
+    const navigate = useNavigate()
 
     return (
         <Container>
@@ -67,9 +66,12 @@ const BoardAddComponent = () => {
             <div className='label'>사진</div>
             <CustomMultipleFileInput file={file} setFile={setFile}/>
             <SubButtonWrapper>
-                <CustomRoundDiv height={40} width={90} backgroundcolor={title && content ? '#f02b70' : 'lightgray'} onClick={() => {
+                <CustomRoundDiv height={40} width={90} backgroundcolor={title && content ? '#f02b70' : 'lightgray'} onClick={async () => {
                     if (title && content) {
-                        console.log(title, content, file)
+                        addFeedAsync({
+                            "title": title,
+                            "content": content
+                        }).then(response => navigate('/'))
                     } 
                 }}>
                     완료

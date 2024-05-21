@@ -272,26 +272,27 @@ const AddPetComponent = ({
                 <CustomRoundDiv height={40} width={90} backgroundcolor={name && species && birth ? "#f02b70" : 'lightgray'} onClick={() => {
                     const vaccinelist = ref.current.value ? ref.current.value.split('\n') : []
                     if (name && species && birth) {
-                        onPetAdded({
-                            name: name,
-                            kind: kind,
-                            species: species,
-                            gender: gender,
-                            neutering: neutering,
-                            birth: birth,
-                            vaccineList: vaccinelist,
-                            petImage: petImage
-                        })
+                        // onPetAdded({
+                        //     name: name,
+                        //     kind: kind,
+                        //     species: species,
+                        //     gender: gender,
+                        //     neutering: neutering,
+                        //     birth: birth,
+                        //     vaccineList: vaccinelist,
+                        //     petImage: petImage
+                        // })
+                        console.log(vaccinelist)
                         
-                        navigate('/')
+                        // navigate('/')
                         
-                        onPetImageChanged(null)
-                        onKindChanged('dog')
-                        onPetnameChanged('')
-                        onGenderChanged('male')
-                        onNeuteringChanged(false)
-                        onSpeciesChanged('')
-                        onBirthChanged(null)
+                        // onPetImageChanged(null)
+                        // onKindChanged('dog')
+                        // onPetnameChanged('')
+                        // onGenderChanged('male')
+                        // onNeuteringChanged(false)
+                        // onSpeciesChanged('')
+                        // onBirthChanged(null)
                     }
                 }}>
                     등록

@@ -126,7 +126,7 @@ const InputBtn = styled.div`
     color: gray;
 `;
 
-const BoardDetailComponent = ({comment, setComment, overlay, setOverlay}) => {
+const BoardDetailComponent = ({comment, setComment, overlay, setOverlay, feed, dateFormatter}) => {
 
     const filelist = ['a','b','c','d','e','f','g','h','i'];
     // const filelist = []
@@ -159,12 +159,12 @@ const BoardDetailComponent = ({comment, setComment, overlay, setOverlay}) => {
             <ProfileWrapper>
                 <CustomRoundDiv height={50} width={50} borderradius={25} margin={'0px 10px 0 0'}/>
                 <div className='additional'>
-                    <div>이름</div>
-                    <div>24/04/09 16:34</div>
+                    <div>{feed.user.username}</div>
+                    <div>{dateFormatter(feed.createDate)}</div>
                 </div>
             </ProfileWrapper>
             <ContentWrapper>
-                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                {feed.content}
             </ContentWrapper>
             {filelist.length > 0 && 
                 <FileWrapper>
@@ -178,8 +178,8 @@ const BoardDetailComponent = ({comment, setComment, overlay, setOverlay}) => {
                     <FaComment className='icon'/><span>0</span>
                 </div>
             </AdditionalWrapper>
-            {commentList &&
-                commentList.map(comment => {
+            {feed.comments &&
+                feed.comments.map(comment => {
                     const onEditClicked = (() => {
                         console.log(`댓글${comment} 수정`)
                     })
@@ -210,4 +210,4 @@ const BoardDetailComponent = ({comment, setComment, overlay, setOverlay}) => {
     );
 };
 
-export default BoardDetailComponent;
+export default React.memo(BoardDetailComponent);

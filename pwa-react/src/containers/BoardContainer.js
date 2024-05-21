@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import BoardComponent from '../components/Board/BoardComponent';
 import { useNavigate } from 'react-router-dom';
+import { getFeedAsync } from '../modules/Borad';
 
-const BoardContainer = ({feedList}) => {
+const BoardContainer = ({feedList, getFeedAsync, loadingBoard}) => {
+
+    useEffect(() => {
+        getFeedAsync()
+    },[getFeedAsync])
 
     const [search, setSearch] = useState(null);
 
@@ -30,10 +35,14 @@ const BoardContainer = ({feedList}) => {
             setSearch={setSearch} 
             timeCalculator={timeCalculator} 
             onAddBtnClicked={onAddBtnClicked}
+            loadingBoard={loadingBoard}
         />
     );
 };
 
-export default connect(({Board}) => ({
-    feedList: Board.feedList
-}),{})(BoardContainer);
+export default connect(({Board, Loading}) => ({
+    feedList: Board.feedList,
+    loadingBoard: Loading['Board/GET_FEED']
+}),{
+    getFeedAsync
+})(BoardContainer);

@@ -5,6 +5,8 @@ import VaccineSchedule from "./VaccineSchedule";
 import Profile from "./Profile";
 import PetAddInfo from "./PetAddInfo";
 import Board from "./Borad";
+import Loading from "./Loading";
+import Account from "./Account";
 
 const rootReducer = combineReducers({
     AIdiagnosis,
@@ -12,7 +14,9 @@ const rootReducer = combineReducers({
     VaccineSchedule,
     Profile,
     PetAddInfo,
-    Board
+    Board,
+    Loading,
+    Account,
 });
 
 export default rootReducer

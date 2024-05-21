@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import CustomRoundDiv from './CustomComponents/CustomRoundDiv';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowBack } from "react-icons/io";
-
-
 
 const Appbar = styled.div`
     position: fixed;
@@ -31,6 +28,15 @@ const Inner = styled.div`
     }
 `;
 
+const LogoContainer = styled.div`
+    height: 40px;
+    width: 130px;
+    background-image: url('images/logo_rectangle.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: 10px;
+`;
+
 const AppbarComponent = ({isHome, children}) => {
 
     const navigate = useNavigate();
@@ -38,9 +44,7 @@ const AppbarComponent = ({isHome, children}) => {
     return <Appbar>
         {isHome ? 
         <Inner $ishome={isHome}>
-            <CustomRoundDiv height={40} width={80}>
-                Logo
-            </CustomRoundDiv>
+            <LogoContainer />
         </Inner> 
         : <Inner $ishome={isHome}>
                 <div className='back'>

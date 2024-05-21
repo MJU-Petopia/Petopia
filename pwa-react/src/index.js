@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import rootReducer from './modules';
 import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ResultPage from './pages/ResultPage';
@@ -21,9 +21,12 @@ import ProfileChangePage from './pages/ProfileChangePage';
 import BoardDetailPage from './pages/BoardDetailPage';
 import AddBoardPage from './pages/AddBoardPage';
 import ScrollToTop from './ScrollToTop';
+import { createLogger } from 'redux-logger';
+import { thunk } from 'redux-thunk';
+import LoginPage from './pages/LoginPage';
 
-
-const store = createStore(rootReducer, composeWithDevTools());
+const logger = createLogger();
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -33,6 +36,7 @@ root.render(
       <ScrollToTop/>
       <Routes>
         <Route path='/' Component={HomePage}/>
+        <Route path='/login' Component={LoginPage}></Route>
         <Route path='/result' Component={ResultPage}/>
         <Route path='/addschedule1' Component={ScheduleAdd_1}></Route>
         <Route path='/addschedule2' Component={ScheduleAdd_2}></Route>
