@@ -42,6 +42,9 @@ public class Vaccination {
     @Column(nullable = false)
     private int totalPeriod;
 
+    @Column(nullable = false)
+    private String petName;
+
     @JsonIgnoreProperties({"posts", "pets"})
     @JoinColumn(name = "userId")
     @ManyToOne
