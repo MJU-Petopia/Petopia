@@ -32,7 +32,7 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
         String tokenValue = accessToken.getTokenValue();
 
-        String redirectUrl = "http://localhost:3000?accessToken=" + tokenValue;
+        String redirectUrl = "http://localhost:3000/verification?accessToken=" + tokenValue;
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 }

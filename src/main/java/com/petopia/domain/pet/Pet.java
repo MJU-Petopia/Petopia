@@ -47,7 +47,7 @@ public class Pet {
     @Column(nullable = false)
     private String vaccinationList;
 
-    @JsonIgnoreProperties({"pets", "posts"})
+    @JsonIgnoreProperties({"pets", "posts", "vaccinations"})
     @JoinColumn(name = "userId")
     @ManyToOne
     private User user;

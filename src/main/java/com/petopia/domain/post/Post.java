@@ -26,7 +26,7 @@ public class Post {
     private String content;
     private String postImageUrl;
 
-    @JsonIgnoreProperties({"posts", "pets"})
+    @JsonIgnoreProperties({"posts", "pets", "vaccinations"})
     @JoinColumn(name = "userId")
     @ManyToOne
     private User user;

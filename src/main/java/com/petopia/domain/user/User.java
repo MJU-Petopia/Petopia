@@ -55,7 +55,7 @@ public class User {
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"user"}) //무한참조 방지
-    private List<Vaccination> Vaccinations; //양방향 매핑
+    private List<Vaccination> vaccinations; //양방향 매핑
 
     private LocalDateTime createDate;
 
