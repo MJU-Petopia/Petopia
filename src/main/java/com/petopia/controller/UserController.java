@@ -72,8 +72,7 @@ public class UserController {
     //
     @GetMapping("/accesstoken/{accessToken}")
     public ResponseEntity<?> userInfo(@PathVariable String accessToken, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        User user = principalDetails.getUser();
-        System.out.println(user);
+        User user = userService.userInfo(principalDetails.getUser().getId());
         return new ResponseEntity<>(new CMRespDto<>(1, "회원정보", user), HttpStatus.OK);
     }
 }
