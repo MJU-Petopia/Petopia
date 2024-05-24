@@ -1,6 +1,5 @@
 package com.petopia.config;
 
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -20,7 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/upload/**")
                 .addResourceLocations("file:///" + uploadFolder)
-                .setCachePeriod(60*10*6)
+                .setCachePeriod(60 * 10 * 6)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
     }

@@ -26,7 +26,8 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
     }
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+            Authentication authentication) throws IOException {
         OAuth2AuthenticationToken authenticationToken = (OAuth2AuthenticationToken) authentication;
 
         String clientRegistrationId = authenticationToken.getAuthorizedClientRegistrationId();
@@ -36,9 +37,6 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
         String tokenValue = accessToken.getTokenValue();
 
-        User user = (User) authenticationToken.getPrincipal();
-//        userInfo = URLEncoder.encode(userInfo, "UTF-8");
-//        response.setHeader("userInfo", userInfo);
         String redirectUrl = "http://localhost:3000/verification?accessToken=" + tokenValue;
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }

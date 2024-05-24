@@ -11,22 +11,7 @@ export const onNameChanged = createAction(ON_NAME_CHANGED, name => name);
 const initialstate = {
     name: 'default',
     email: 'example@example.com',
-    number: 2,
     pet: [
-        {
-            id: 1,
-            kind: 'dog',
-            species: '제주개',
-            gender: 'male',
-            name: '똘이',
-            neutering: true,
-            birth: new Date('2023-04-12'),
-            vaccineList: [
-                '접종1',
-                '접종2',
-                '접종3'
-            ]
-        }
     ],
 }
 

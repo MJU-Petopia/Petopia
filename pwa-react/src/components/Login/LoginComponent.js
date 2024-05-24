@@ -22,7 +22,8 @@ const Container = styled.div`
     }
 `;
 
-const LoginComponent = ({facebookSignin}) => {
+const LoginComponent = () => {
+
     return (
         <Container>
             <CustomRoundDiv height={200} width={200}/>
