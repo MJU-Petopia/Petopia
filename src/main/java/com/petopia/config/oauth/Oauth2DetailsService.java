@@ -29,7 +29,6 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService {
         String password = new BCryptPasswordEncoder().encode(UUID.randomUUID().toString());
         String email = (String) userInfo.get("email");
         String name = (String) userInfo.get("name");
-        String accessToken = userRequest.getAccessToken().getTokenValue();
 
         // 페이스북 로그인이 최초인지 확인
         User userEntity = userRepository.findByUsername(username);
@@ -43,10 +42,8 @@ public class Oauth2DetailsService extends DefaultOAuth2UserService {
                     .name(name)
                     .role("ROLE_USER")
                     .build();
-            System.out.println("accessToken=" + accessToken);
             return new PrincipalDetails(userRepository.save(user), oAuth2User.getAttributes());
         }else { // 페이스북으로 이미 회원가입 되어있음
-            System.out.println("accessToken=" + accessToken);
             return new PrincipalDetails(userEntity, oAuth2User.getAttributes());
         }
     }

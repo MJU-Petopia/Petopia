@@ -1,5 +1,6 @@
 package com.petopia.config.oauth;
 
+import com.petopia.domain.user.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -35,11 +36,10 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
         String tokenValue = accessToken.getTokenValue();
 
-        System.out.println(authenticationToken.getPrincipal());
-        String userInfo = authenticationToken.getPrincipal().toString();
-        userInfo = URLEncoder.encode(userInfo, "UTF-8");
-//        response.addHeader("userInfo", userInfo);
-        String redirectUrl = "http://localhost:3000/verification?accessToken=" + tokenValue + "/" + userInfo;
+        User user = (User) authenticationToken.getPrincipal();
+//        userInfo = URLEncoder.encode(userInfo, "UTF-8");
+//        response.setHeader("userInfo", userInfo);
+        String redirectUrl = "http://localhost:3000/verification?accessToken=" + tokenValue;
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 }
