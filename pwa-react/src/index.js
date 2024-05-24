@@ -6,24 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { applyMiddleware, createStore } from 'redux';
 import rootReducer from './modules';
 import { Provider } from 'react-redux';
-// import { composeWithDevTools } from 'redux-devtools-extension';
-import { BrowserRouter, Route, Routes} from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import ResultPage from './pages/ResultPage';
-import ScheduleAdd_1 from './pages/SchedulePage/ScheduleAdd_1';
-import ScheduleAdd_2 from './pages/SchedulePage/ScheduleAdd_2';
-import ScheduleAdd_3 from './pages/SchedulePage/ScheduleAdd_3';
-import ScheduleAdd_4 from './pages/SchedulePage/ScheduleAdd_4';
-import ScheduleAdd_5 from './pages/SchedulePage/ScheduleAdd_5';
-import AddpetPage from './pages/AddpetPage';
-import PetDetailPage from './pages/PetDetailPage';
-import ProfileChangePage from './pages/ProfileChangePage';
-import BoardDetailPage from './pages/BoardDetailPage';
-import AddBoardPage from './pages/AddBoardPage';
-import ScrollToTop from './ScrollToTop';
 import { createLogger } from 'redux-logger';
 import { thunk } from 'redux-thunk';
-import LoginPage from './pages/LoginPage';
+import App from './App';
 
 const logger = createLogger();
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
@@ -32,24 +17,7 @@ const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <ScrollToTop/>
-      <Routes>
-        <Route path='/' Component={HomePage}/>
-        <Route path='/login' Component={LoginPage}></Route>
-        <Route path='/result' Component={ResultPage}/>
-        <Route path='/addschedule1' Component={ScheduleAdd_1}></Route>
-        <Route path='/addschedule2' Component={ScheduleAdd_2}></Route>
-        <Route path='/addschedule3' Component={ScheduleAdd_3}></Route>
-        <Route path='/addschedule4' Component={ScheduleAdd_4}></Route>
-        <Route path='/addschedule5' Component={ScheduleAdd_5}></Route>
-        <Route path='/addpet' Component={AddpetPage}></Route>
-        <Route path='/pet/:id' Component={PetDetailPage}></Route>
-        <Route path='/profilechange/:id' Component={ProfileChangePage}></Route>
-        <Route path='/board/:id' Component={BoardDetailPage}></Route>
-        <Route path='/addboard' Component={AddBoardPage}></Route>
-      </Routes>
-    </BrowserRouter>
+    <App/>
   </Provider>
 );
 
