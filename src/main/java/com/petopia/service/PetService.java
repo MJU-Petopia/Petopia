@@ -1,6 +1,5 @@
 package com.petopia.service;
 
-import com.petopia.config.auth.PrincipalDetails;
 import com.petopia.domain.pet.Pet;
 import com.petopia.domain.pet.PetRepository;
 import com.petopia.domain.user.User;

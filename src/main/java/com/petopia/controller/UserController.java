@@ -45,10 +45,8 @@ public class UserController {
     // 회원 수정
     @PatchMapping("{id}")
     public ResponseEntity<?> update(@PathVariable int id,
-                               @RequestBody UserUpdateDto userUpdateDto,
-                               @AuthenticationPrincipal PrincipalDetails principalDetails) {
+                               @RequestBody UserUpdateDto userUpdateDto) {
         User userEntity = userService.userEdit(id, userUpdateDto.toEntity());
-        principalDetails.setUser(userEntity);
         return new ResponseEntity<>(new CMRespDto<>(1, "회원수정 성공", userEntity), HttpStatus.OK);
     }
 
