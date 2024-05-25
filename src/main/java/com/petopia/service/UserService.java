@@ -49,11 +49,4 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    // 회원 정보
-    @Transactional
-    public User userInfo(int id) {
-        User user = userRepository.findById(id).orElseThrow(() ->
-        { return new CustomValidationApiException("찾을 수 없는 id입니다.");});
-        return user;
-    }
 }
