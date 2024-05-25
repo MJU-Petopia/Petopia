@@ -13,6 +13,6 @@ public class UserUpdateDto {
 
     public User toEntity(){
         return User.builder()
-                .name(username).phone(phone).gender(gender).build();
+                .username(username).phone(phone).gender(gender).build();
     }
 }
