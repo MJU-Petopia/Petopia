@@ -7,7 +7,7 @@ import {SpeciesList} from '../../List/SpeciesList.js';
 import { IoClose } from "react-icons/io5";
 import { IoMdSearch } from "react-icons/io";
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv.js';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 
@@ -175,6 +175,7 @@ const AddPetComponent = ({
     neutering, 
     birth, 
     petImage,
+    vaccinationList,
     onPetnameChanged,
     onKindChanged,
     onSpeciesChanged,
@@ -182,12 +183,14 @@ const AddPetComponent = ({
     onNeuteringChanged,
     onBirthChanged,
     onPetImageChanged,
-    onPetAdded
+    onPetAdded,
+    onPetEditted,
 }) => {
 
     const [open, setOpen] = useState(false);
     const [filter, setFilter] = useState('');
     const ref = useRef(null);
+    const param = useParams();
     const navigate = useNavigate();
 
     return (
@@ -255,44 +258,49 @@ const AddPetComponent = ({
             <div className='title'>
                 생일<span className='necessary'>*</span>
             </div>
-            <Input type='text'  onChange={e => {
-                const regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
+            <Input type='text' defaultValue={birth} onChange={e => {
+                const regex = RegExp(/^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/);
                 if (regex.test(e.target.value)) {
-                    onBirthChanged(new Date(e.target.value));
+                    onBirthChanged(e.target.value);
                 } else {
                     onBirthChanged(null);
                 }
-            }} placeholder='yyyy-mm-dd'/>
+            }} placeholder='yymmdd'/>
             <div className='title'>
                 접종 목록
-                <div className='additional'>Enter키를 기준으로 분류됩니다</div>
+                <div className='additional'>','를 기준으로 분류됩니다</div>
             </div>
-            <Textarea ref={ref}/>
+            <Textarea ref={ref} defaultValue={vaccinationList}/>
             <div className='submit_btn'>
-                <CustomRoundDiv height={40} width={90} backgroundcolor={name && species && birth ? "#f02b70" : 'lightgray'} onClick={() => {
-                    const vaccinelist = ref.current.value ? ref.current.value.split('\n') : []
+                <CustomRoundDiv height={40} width={90} backgroundcolor={name && species && birth ? "#f02b70" : 'lightgray'} onClick={async () => {
                     if (name && species && birth) {
-                        // onPetAdded({
-                        //     name: name,
-                        //     kind: kind,
-                        //     species: species,
-                        //     gender: gender,
-                        //     neutering: neutering,
-                        //     birth: birth,
-                        //     vaccineList: vaccinelist,
-                        //     petImage: petImage
-                        // })
-                        console.log(vaccinelist)
+                        const id = param.id || window.sessionStorage.getItem('id');
+                        const data = {
+                            "petType": kind === 'dog' ? '강아지' : '고양이',
+                            "name": name,
+                            "gender": gender === 'male' ? '수컷' : '암컷',
+                            "neutering": neutering === true ? 1 : 0,
+                            "kind": species,
+                            "vaccinationList": ref.current.value,
+                            "birthday": birth,
+                        }
+                        if (window.location.pathname.search('edit') === 1) {
+                            await onPetEditted([id, data]);
+                            // console.log(id, data)
+                        } else {
+                            await onPetAdded([id, data]);
+                            // console.log(id, data)
+                        }
                         
-                        // navigate('/')
+                        navigate('/')
                         
-                        // onPetImageChanged(null)
-                        // onKindChanged('dog')
-                        // onPetnameChanged('')
-                        // onGenderChanged('male')
-                        // onNeuteringChanged(false)
-                        // onSpeciesChanged('')
-                        // onBirthChanged(null)
+                        onPetImageChanged(null)
+                        onKindChanged('dog')
+                        onPetnameChanged('')
+                        onGenderChanged('male')
+                        onNeuteringChanged(false)
+                        onSpeciesChanged('')
+                        onBirthChanged(null)
                     }
                 }}>
                     등록

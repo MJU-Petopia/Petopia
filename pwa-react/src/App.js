@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -17,20 +17,32 @@ import BoardDetailPage from './pages/BoardDetailPage';
 import AddBoardPage from './pages/AddBoardPage';
 import VerificationPage from './pages/VerificationPage';
 import ProtectedRoute from './ProtectedRoute';
-import { connect } from 'react-redux';
-import getUserdataAsync from './modules/User';
+import { useDispatch } from 'react-redux';
+import { setUserdata } from './modules/Profile';
 
 const App = () => {
 
-  // useEffect(() => {
-  //   const accessToken = localStorage.getItem('accessToken');
-  //   if (accessToken) {
-  //     getUserdataAsync(accessToken);
-  //   }
-  // },[]);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  useEffect(() => {
+    const name = window.sessionStorage.getItem('name');
+    const email = window.sessionStorage.getItem('email');
+    const gender = window.sessionStorage.getItem('gender');
+    const phone = window.sessionStorage.getItem('phone');
+    
+    if (name){
+      dispatch(setUserdata({
+        name: name,
+        email: email,
+        gender: gender,
+        phone: phone
+      }));
+      navigate(-1)
+    }
+  },[])
 
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop/>
       <Routes>
         <Route path='/verification' element={<VerificationPage/>}></Route>
@@ -47,13 +59,10 @@ const App = () => {
         <Route path='/profilechange/:id' element={<ProtectedRoute><ProfileChangePage/></ProtectedRoute>}></Route>
         <Route path='/board/:id' element={<ProtectedRoute><BoardDetailPage/></ProtectedRoute>}></Route>
         <Route path='/addboard' element={<ProtectedRoute><AddBoardPage/></ProtectedRoute>}></Route>
+        <Route path='/edit/pet/:id' element={<ProtectedRoute><AddpetPage/></ProtectedRoute>}></Route>
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
-
-// export default connect(()=>({}),{
-//   getUserdataAsync
-// })(App);
 
 export default App;

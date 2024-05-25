@@ -25,7 +25,8 @@ const Container = styled.div`
 const PetInfoComponent = ({pet, onClick}) => {
 
     const ageCalculator = (date) => {
-        const ageDifMs = Date.now() - date;
+        const parsing = `20${date.slice(0,2)}-${date.slice(2,4)}-${date.slice(4)}`;
+        const ageDifMs = Date.now() - new Date(parsing);
         const ageDate = new Date(ageDifMs);
         return Math.abs(ageDate.getUTCFullYear() - 1970)
     }
@@ -34,7 +35,7 @@ const PetInfoComponent = ({pet, onClick}) => {
         <Container onClick={() => onClick()}>
             <CustomRoundDiv height={40} width={40} borderradius={20} margin={'0px 0px 5px 0px'}/>
             <div>{pet.name}</div>
-            <div className='additional'>{`${pet.gender === 'male' ? '♂' : '♀'} ${ageCalculator(pet.birth)}세`}</div>
+            <div className='additional'>{`${pet.gender === '수컷' ? '♂' : '♀'} ${ageCalculator(pet.birthday)}세`}</div>
         </Container>
     );
 };

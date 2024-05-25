@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { onPetnameChanged, onKindChanged, onSpeciesChanged, onGenderChanged, onNeuteringChanged, onBirthChanged, onPetImageChanged } from '../modules/PetAddInfo';
-import { onPetAdded } from '../modules/Profile';
+import { addPetAsync, editPetAsync } from '../modules/Profile';
 import AddPetComponent from '../components/AddPet/AddPetComponent';
+import { getPetdetailAsync } from '../modules/PetAddInfo';
+import { useParams } from 'react-router-dom';
+import LoadingComponent from '../components/Loading/LoadingComponent';
+
 
 const AddPetContainer = ({
     name, 
@@ -12,6 +16,8 @@ const AddPetContainer = ({
     neutering, 
     birth,
     petImage,
+    vaccinationList,
+    loading,
     onPetnameChanged,
     onKindChanged,
     onSpeciesChanged,
@@ -19,9 +25,20 @@ const AddPetContainer = ({
     onNeuteringChanged,
     onBirthChanged,
     onPetImageChanged,
-    onPetAdded,
+    addPetAsync,
+    getPetdetailAsync,
+    editPetAsync
 }) => {
-    return (
+
+    const param = useParams();
+
+    useEffect(() => {
+        if (param.id) {
+            getPetdetailAsync(param.id)
+        }
+    },[])
+
+    return !loading ? (
         <AddPetComponent 
             name={name}
             species={species}
@@ -29,6 +46,7 @@ const AddPetContainer = ({
             gender={gender}
             neutering={neutering}
             birth={birth}
+            vaccinationList={vaccinationList}
             petImage={petImage}
             onPetnameChanged={onPetnameChanged}
             onKindChanged={onKindChanged}
@@ -37,19 +55,22 @@ const AddPetContainer = ({
             onNeuteringChanged={onNeuteringChanged}
             onBirthChanged={onBirthChanged}
             onPetImageChanged={onPetImageChanged}
-            onPetAdded={onPetAdded}
+            onPetAdded={addPetAsync}
+            onPetEditted={editPetAsync}
         />
-    );
+    ) : <LoadingComponent/>;
 };
 
-export default connect(({PetAddInfo}) => ({
+export default connect(({PetAddInfo, Loading}) => ({
     name: PetAddInfo.name,
     kind: PetAddInfo.kind,
     species: PetAddInfo.species,
     gender: PetAddInfo.gender,
     neutering: PetAddInfo.neutering,
     birth: PetAddInfo.birth,
-    petImage: PetAddInfo.petImage
+    vaccinationList: PetAddInfo.vaccinationList,
+    petImage: PetAddInfo.petImage,
+    loading: Loading["PetAddInfo/GET_PETDETAIL"]
 }),{
     onPetnameChanged,
     onKindChanged,
@@ -58,5 +79,7 @@ export default connect(({PetAddInfo}) => ({
     onNeuteringChanged,
     onBirthChanged,
     onPetImageChanged,
-    onPetAdded,
+    addPetAsync,
+    editPetAsync,
+    getPetdetailAsync,
 })(AddPetContainer);

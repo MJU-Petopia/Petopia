@@ -9,15 +9,19 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import { thunk } from 'redux-thunk';
 import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import {composeWithDevTools} from 'redux-devtools-extension'
 
 const logger = createLogger();
-const store = createStore(rootReducer, applyMiddleware(logger, thunk));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, thunk)));
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <App/>
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
   </Provider>
 );
 

@@ -159,7 +159,7 @@ const BoardDetailComponent = ({comment, setComment, overlay, setOverlay, feed, d
             <ProfileWrapper>
                 <CustomRoundDiv height={50} width={50} borderradius={25} margin={'0px 10px 0 0'}/>
                 <div className='additional'>
-                    <div>{feed.user.username}</div>
+                    <div>{feed.user.name}</div>
                     <div>{dateFormatter(feed.createDate)}</div>
                 </div>
             </ProfileWrapper>

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CustomProfileImageInput from '../CustomComponents/CustomProfileImageInput';
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     margin: 55px 20px 0 20px;
@@ -44,22 +45,37 @@ const Input = styled.input`
     }
 `;
 
-const ProfileChangeComponent = () => {
+const ProfileChangeComponent = ({ name, phone, email, profileIMG, setName, setPhone, editUserAsync, changeProfileImage }) => {
+
+    const navigate = useNavigate();
+
     return (
         <Container>
             <div className='middle_wrapper'>
-                <CustomProfileImageInput width={100} height={100}/>
+                <CustomProfileImageInput width={100} height={100} file={profileIMG} onChange={e=>changeProfileImage(e.target.files[0])}/>
             </div>
             <div className='title'>
                 이름<span className='necessary'>*</span>
             </div>
-            <Input type='text' value={'원래이름'} maxLength={10}/>
-            <div className='title'>
-                이메일
-            </div>
-            <Input type='text' value={'example@example.com'} maxLength={10} disabled/>
+            <Input type='text' value={name} maxLength={10} onChange={e => setName(e.target.value)} />
+            <div className='title'>이메일</div>
+            <Input type='text' value={email} maxLength={10} disabled />
+            <div className='title'>핸드폰</div>
+            <Input type='text' value={phone} maxLength={13} onChange={e => setPhone(e.target.value)} />
             <div className='middle_wrapper'>
-                <CustomRoundDiv height={40} width={90} margin={'20px 0 0 0 '}>
+                <CustomRoundDiv height={40} width={90} margin={'20px 0 0 0 '} onClick={async () => {
+                    const id = window.sessionStorage.getItem('id');
+                    const data = {
+                        "phone": phone,
+                        "name": name
+                    }
+                    await editUserAsync([id, data]);
+
+                    window.sessionStorage.setItem('name', name);
+                    window.sessionStorage.setItem('phone', phone);
+
+                    navigate('/');
+                }}>
                     변경
                 </CustomRoundDiv>
             </div>

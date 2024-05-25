@@ -42,7 +42,7 @@ const BoardItem = ({feed, timeCalculator}) => {
             <div className='additional'>
                 <div className='time'>{timeCalculator(new Date(feed.createDate))}</div>
                 <CustomRoundDiv margin={'0 8px 0 0'}/>
-                <span>{feed.user.username}</span>
+                <span>{feed.user.name}</span>
             </div>
         </Container>
     );

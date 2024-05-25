@@ -1,5 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
+import createRequestThunk from "../lib/createRequestThunk";
+import { getPetDetail } from "../lib/api";
 
+
+const GET_PETDETAIL = 'PetAddInfo/GET_PETDETAIL';
+const GET_PETDETAIL_SUCCESS = 'PetAddInfo/GET_PETDETAIL_SUCCESS';
 const ON_PETNAME_CHANGED = 'PetAddInfo/ON_PETNAME_CHANGED';
 const ON_KIND_CHANGED = 'PetAddInfo/ON_KIND_CHANGED';
 const ON_SPECIES_CHANGED = 'PetAddInfo/ON_SPECIES_CHANGED';
@@ -16,6 +21,9 @@ export const onNeuteringChanged = createAction(ON_NEUTERING_CHANGED, bool => boo
 export const onBirthChanged = createAction(ON_BIRTH_CHANGED, date => date);
 export const onPetImageChanged = createAction(ON_PETIMAGE_CHANGED, file => file);
 
+export const getPetdetailAsync = createRequestThunk(GET_PETDETAIL, getPetDetail);
+
+
 const initialstate = {
     name: '',
     kind: 'dog',
@@ -24,6 +32,7 @@ const initialstate = {
     neutering: false,
     birth: '',
     petImage: null,
+    vaccinationList: '',
 }
 
 const PetAddInfo = handleActions(
@@ -55,6 +64,16 @@ const PetAddInfo = handleActions(
         [ON_PETIMAGE_CHANGED]: (state, action) => ({
             ...state,
             petImage: action.payload
+        }),
+        [GET_PETDETAIL_SUCCESS]: (state, action) => ({
+            ...state,
+            name: action.payload.data.data.name,
+            kind: action.payload.data.data.petType === '강아지' ? 'dog' : 'cat',
+            species: action.payload.data.data.kind,
+            gender: action.payload.data.data.gender === '수컷' ? 'male' : 'female',
+            neutering: action.payload.data.data.neutering === 1 ? true : false,
+            birth: action.payload.data.data.birthday,
+            vaccinationList: action.payload.data.data.vaccinationList,
         })
     }, initialstate
 )
