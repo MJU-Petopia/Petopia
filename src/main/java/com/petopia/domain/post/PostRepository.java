@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
+import org.springframework.data.repository.query.Param;
 
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
@@ -15,5 +15,5 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 
     @Modifying
     @Query(value = "DELETE FROM Post WHERE id=:postId AND userId =:userId", nativeQuery = true)
-    void mDelete(int postId, int userId);
+    void mDelete(@Param("postId")int postId, @Param("userId") int userId);
 }
