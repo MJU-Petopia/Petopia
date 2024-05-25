@@ -27,7 +27,7 @@ public class PetController {
 //        return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 등록 완료", pet), HttpStatus.CREATED);
 //    }
 
-        // 반려동물 등록
+    // 반려동물 등록
     @PostMapping("/api/pet/userId={userId}")
     public ResponseEntity<?> petCreate(@RequestBody PetRequestDto petRequestDto, @PathVariable int userId) {
 //        if(principalDetails == null) {
@@ -47,7 +47,7 @@ public class PetController {
 //    }
 
     // 모든 반려동물 조회
-    @GetMapping("/api/pet/userId={userId}")
+    @GetMapping("/api/pet/all/userId={userId}")
     public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable, @PathVariable int userId){
         Page<Pet> pets = petService.petsRead(pageable, userId);
         return new ResponseEntity<>(new CMRespDto<>(1, "조회 성공", pets), HttpStatus.OK);
