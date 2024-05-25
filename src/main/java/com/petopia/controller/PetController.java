@@ -20,10 +20,22 @@ public class PetController {
 
     private final PetService petService;
 
-    // 반려동물 등록
-    @PostMapping("/api/pet")
-    public ResponseEntity<?> petCreate(@RequestBody PetRequestDto petRequestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Pet pet = petService.petCreate(petRequestDto, principalDetails);
+//    // 반려동물 등록
+//    @PostMapping("/api/pet")
+//    public ResponseEntity<?> petCreate(@RequestBody PetRequestDto petRequestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        Pet pet = petService.petCreate(petRequestDto, principalDetails);
+//        return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 등록 완료", pet), HttpStatus.CREATED);
+//    }
+
+        // 반려동물 등록
+    @PostMapping("/api/pet/userId={userId}")
+    public ResponseEntity<?> petCreate(@RequestBody PetRequestDto petRequestDto, @PathVariable int userId) {
+//        if(principalDetails == null) {
+//            System.out.println("널입니다.");
+//            return new ResponseEntity<>(new CMRespDto<>(-1, "반려동물 등록 실패", null), HttpStatus.CREATED);
+//        }
+        
+        Pet pet = petService.petCreate(petRequestDto, userId);
         return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 등록 완료", pet), HttpStatus.CREATED);
     }
 

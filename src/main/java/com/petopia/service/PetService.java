@@ -3,6 +3,8 @@ package com.petopia.service;
 import com.petopia.config.auth.PrincipalDetails;
 import com.petopia.domain.pet.Pet;
 import com.petopia.domain.pet.PetRepository;
+import com.petopia.domain.user.User;
+import com.petopia.domain.user.UserRepository;
 import com.petopia.handler.ex.CustomApiException;
 import com.petopia.request.pet.PetRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class PetService {
 
     private final PetRepository petRepository;
+    private final UserRepository userRepository;
 
     // 반려동물 등록
     @Transactional
-    public Pet petCreate(PetRequestDto petRequestDto, PrincipalDetails principalDetails) {
-        Pet pet = petRequestDto.toEntity(principalDetails.getUser());
+    public Pet petCreate(PetRequestDto petRequestDto, int userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomApiException("회원을 찾지 못했습니다."));
+        Pet pet = petRequestDto.toEntity(user);
         petRepository.save(pet);
         return pet;
     }
