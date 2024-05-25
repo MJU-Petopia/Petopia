@@ -6,6 +6,9 @@ import com.petopia.request.vaccination.VaccinationRequestDto;
 import com.petopia.response.CMRespDto;
 import com.petopia.service.VaccinationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,19 +20,19 @@ public class VaccinationController {
 
     private final VaccinationService vaccinationService;
 
-    // 반려동물 등록
+    // 예방접종 등록
     @PostMapping("/api/vaccination")
     public ResponseEntity<?> petCreate(@RequestBody VaccinationRequestDto vaccinationRequestDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Vaccination vaccination = vaccinationService.vaccinationCreate(vaccinationRequestDto, principalDetails);
         return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 등록 완료", vaccination), HttpStatus.CREATED);
     }
 
-//    // 모든 반려동물 조회
-//    @GetMapping("/api/pet")
-//    public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable){
-//        Page<Pet> pets = petService.petsRead(pageable);
-//        return new ResponseEntity<>(new CMRespDto<>(1, "조회 성공", pets), HttpStatus.OK);
-//    }
+    // 모든 예방접종 조회
+    @GetMapping("/api/vaccination")
+    public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        Page<Vaccination> vaccinations = vaccinationService.vaccinationsRead(pageable, principalDetails.getUser().getId());
+        return new ResponseEntity<>(new CMRespDto<>(1, "조회 성공", vaccinations), HttpStatus.OK);
+    }
 //
 //    // 반려동물 단건 조회
 //    @GetMapping("/api/pet/{petId}")

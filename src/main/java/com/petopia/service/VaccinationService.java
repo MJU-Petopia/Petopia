@@ -5,6 +5,8 @@ import com.petopia.domain.vaccination.Vaccination;
 import com.petopia.domain.vaccination.VaccinationRepository;
 import com.petopia.request.vaccination.VaccinationRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +17,7 @@ public class VaccinationService {
 
     private final VaccinationRepository vaccinationRepository;
 
-    // 반려동물 등록
+    // 예방접종 등록
     @Transactional
     public Vaccination vaccinationCreate(VaccinationRequestDto vaccinationRequestDto, PrincipalDetails principalDetails) {
         Vaccination vaccination = vaccinationRequestDto.toEntity(principalDetails.getUser());
@@ -23,12 +25,12 @@ public class VaccinationService {
         return vaccination;
     }
 
-//    // 모든 반려동물 조회
-//    @Transactional(readOnly = true)
-//    public Page<Pet> petsRead(Pageable pageable){
-//        Page<Pet> pets = petRepository.mList(pageable);
-//        return pets;
-//    }
+    // 모든 예방접종 조회
+    @Transactional(readOnly = true)
+    public Page<Vaccination> vaccinationsRead(Pageable pageable, int userId){
+        Page<Vaccination> vaccinations = vaccinationRepository.mList(pageable, userId);
+        return vaccinations;
+    }
 //
 //    // 반려동물 단건 조회
 //    @Transactional(readOnly = true)
