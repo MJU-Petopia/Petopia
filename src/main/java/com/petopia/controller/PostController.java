@@ -40,7 +40,7 @@ public class PostController {
 
     // 모든 글 조회
     @GetMapping("/api/post")
-    public ResponseEntity<?> postsRead(@PageableDefault(size = 3) Pageable pageable){
+    public ResponseEntity<?> postsRead(@PageableDefault(size = 10) Pageable pageable){
         Page<Post> posts = postService.postsRead(pageable);
         return new ResponseEntity<>(new CMRespDto<>(1, "조회 성공", posts), HttpStatus.OK);
     }
