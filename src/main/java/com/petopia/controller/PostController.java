@@ -31,10 +31,17 @@ public class PostController {
         return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
+//    // 글 작성
+//    @PostMapping("/api/post/")
+//    public ResponseEntity<?> postCreate(@RequestBody PostUploadDto postUploadDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        Post post = postService.postCreate(postUploadDto, principalDetails);
+//        return new ResponseEntity<>(new CMRespDto<>(1, "게시글 작성 완료",post), HttpStatus.CREATED);
+//    }
+
     // 글 작성
-    @PostMapping("/api/post")
-    public ResponseEntity<?> postCreate(@RequestBody PostUploadDto postUploadDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Post post = postService.postCreate(postUploadDto, principalDetails);
+    @PostMapping("/api/post/userId={userId}")
+    public ResponseEntity<?> postCreate(@RequestBody PostUploadDto postUploadDto, @PathVariable int userId) {
+        Post post = postService.postCreate(postUploadDto, userId);
         return new ResponseEntity<>(new CMRespDto<>(1, "게시글 작성 완료",post), HttpStatus.CREATED);
     }
 

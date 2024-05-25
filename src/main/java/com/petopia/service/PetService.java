@@ -20,6 +20,13 @@ public class PetService {
 
     private final PetRepository petRepository;
     private final UserRepository userRepository;
+//    // 반려동물 등록
+//    @Transactional
+//    public Pet petCreate(PetRequestDto petRequestDto, PrincipalDetails principalDetails) {
+//        Pet pet = petRequestDto.toEntity(principalDetails.getUser());
+//        petRepository.save(pet);
+//        return pet;
+//    }
 
     // 반려동물 등록
     @Transactional

@@ -20,10 +20,17 @@ public class CommentController {
 
     private final CommentService commentService;
 
+//    // 댓글 쓰기
+//    @PostMapping("/api/comment")
+//    public ResponseEntity<?> commentCreate(@Valid @RequestBody CommentDto commentDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        Comment comment = commentService.commentCreate(commentDto.getComment(), commentDto.getPostId(), principalDetails.getUser().getId());
+//        return new ResponseEntity<>(new CMRespDto<>(1, "댓글 쓰기 성공", comment), HttpStatus.CREATED);
+//    }
+
     // 댓글 쓰기
-    @PostMapping("/api/comment")
-    public ResponseEntity<?> commentCreate(@Valid @RequestBody CommentDto commentDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Comment comment = commentService.commentCreate(commentDto.getComment(), commentDto.getPostId(), principalDetails.getUser().getId());
+    @PostMapping("/api/comment/userId={userId}")
+    public ResponseEntity<?> commentCreate(@Valid @RequestBody CommentDto commentDto, BindingResult bindingResult, @PathVariable int userId) {
+        Comment comment = commentService.commentCreate(commentDto.getComment(), commentDto.getPostId(), userId);
         return new ResponseEntity<>(new CMRespDto<>(1, "댓글 쓰기 성공", comment), HttpStatus.CREATED);
     }
 

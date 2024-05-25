@@ -64,16 +64,8 @@ public class UserController {
 
     // 회원 탈퇴
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable int id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         userService.userDelete(id);
         return new ResponseEntity<>(new CMRespDto<>(1, "회원 탈퇴 성공", null), HttpStatus.OK);
-    }
-
-    //
-    @GetMapping("/accesstoken/{accessToken}")
-    public ResponseEntity<?> userInfo(@PathVariable String accessToken, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        User user = userService.userInfo(principalDetails.getUser().getId());
-        System.out.println(user);
-        return new ResponseEntity<>(new CMRespDto<>(1, "회원정보", user), HttpStatus.OK);
     }
 }

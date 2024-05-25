@@ -3,6 +3,8 @@ package com.petopia.service;
 import com.petopia.config.auth.PrincipalDetails;
 import com.petopia.domain.post.Post;
 import com.petopia.domain.post.PostRepository;
+import com.petopia.domain.user.User;
+import com.petopia.domain.user.UserRepository;
 import com.petopia.handler.ex.CustomApiException;
 import com.petopia.request.post.PostUpdateDto;
 import com.petopia.request.post.PostUploadDto;
@@ -25,10 +27,29 @@ public class PostService {
     @Value("${C:/Users/sunms/Desktop/project/photogram_image/}")
     private String filePath;
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
+
+//    // 글 작성
+//    @Transactional
+//    public Post postCreate(PostUploadDto postUploadDto, PrincipalDetails principalDetails) {
+////        UUID uuid = UUID.randomUUID();
+////        String imageFileName = uuid + "_" + postUploadDto.getFile().getOriginalFilename();
+////        Path imageFilePath = Paths.get(filePath + imageFileName);
+////
+////        try {
+////            Files.write(imageFilePath, postUploadDto.getFile().getBytes());
+////        }catch (Exception e) {
+////            e.printStackTrace();
+////        }
+//
+//        Post post = postUploadDto.toEntity(principalDetails.getUser());
+//        postRepository.save(post);
+//        return post;
+//    }
 
     // 글 작성
     @Transactional
-    public Post postCreate(PostUploadDto postUploadDto, PrincipalDetails principalDetails) {
+    public Post postCreate(PostUploadDto postUploadDto, int userId) {
 //        UUID uuid = UUID.randomUUID();
 //        String imageFileName = uuid + "_" + postUploadDto.getFile().getOriginalFilename();
 //        Path imageFilePath = Paths.get(filePath + imageFileName);
@@ -39,7 +60,8 @@ public class PostService {
 //            e.printStackTrace();
 //        }
 
-        Post post = postUploadDto.toEntity(principalDetails.getUser());
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomApiException("회원을 찾지 못했습니다."));
+        Post post = postUploadDto.toEntity(user);
         postRepository.save(post);
         return post;
     }

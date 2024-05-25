@@ -39,10 +39,17 @@ public class PetController {
         return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 등록 완료", pet), HttpStatus.CREATED);
     }
 
+//    // 모든 반려동물 조회
+//    @GetMapping("/api/pet")
+//    public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable, @AuthenticationPrincipal PrincipalDetails principalDetails){
+//        Page<Pet> pets = petService.petsRead(pageable, principalDetails.getUser().getId());
+//        return new ResponseEntity<>(new CMRespDto<>(1, "조회 성공", pets), HttpStatus.OK);
+//    }
+
     // 모든 반려동물 조회
-    @GetMapping("/api/pet")
-    public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        Page<Pet> pets = petService.petsRead(pageable, principalDetails.getUser().getId());
+    @GetMapping("/api/pet/userId={userId}")
+    public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable, @PathVariable int userId){
+        Page<Pet> pets = petService.petsRead(pageable, userId);
         return new ResponseEntity<>(new CMRespDto<>(1, "조회 성공", pets), HttpStatus.OK);
     }
 
@@ -60,10 +67,17 @@ public class PetController {
         return new ResponseEntity<>(new CMRespDto<>(1, "수정 성공", pet), HttpStatus.OK);
     }
 
+//    // 반려동물 삭제
+//    @DeleteMapping("/api/pet/{petId}")
+//    public ResponseEntity<?> petDelete(@PathVariable int petId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        petService.petDelete(petId, principalDetails.getUser().getId());
+//        return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 삭제 성공", null),HttpStatus.OK);
+//    }
+
     // 반려동물 삭제
-    @DeleteMapping("/api/pet/{petId}")
-    public ResponseEntity<?> petDelete(@PathVariable int petId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        petService.petDelete(petId, principalDetails.getUser().getId());
+    @DeleteMapping("/api/pet/petId={petId}/userId={userId}")
+    public ResponseEntity<?> petDelete(@PathVariable int petId, @PathVariable int userId) {
+        petService.petDelete(petId, userId);
         return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 삭제 성공", null),HttpStatus.OK);
     }
 }

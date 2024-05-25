@@ -1,8 +1,11 @@
 package com.petopia.service;
 
 import com.petopia.config.auth.PrincipalDetails;
+import com.petopia.domain.user.User;
+import com.petopia.domain.user.UserRepository;
 import com.petopia.domain.vaccination.Vaccination;
 import com.petopia.domain.vaccination.VaccinationRepository;
+import com.petopia.handler.ex.CustomApiException;
 import com.petopia.request.vaccination.VaccinationRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,11 +19,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class VaccinationService {
 
     private final VaccinationRepository vaccinationRepository;
+    private final UserRepository userRepository;
+
+//    // 예방접종 등록
+//    @Transactional
+//    public Vaccination vaccinationCreate(VaccinationRequestDto vaccinationRequestDto, PrincipalDetails principalDetails) {
+//        Vaccination vaccination = vaccinationRequestDto.toEntity(principalDetails.getUser());
+//        vaccinationRepository.save(vaccination);
+//        return vaccination;
+//    }
 
     // 예방접종 등록
     @Transactional
-    public Vaccination vaccinationCreate(VaccinationRequestDto vaccinationRequestDto, PrincipalDetails principalDetails) {
-        Vaccination vaccination = vaccinationRequestDto.toEntity(principalDetails.getUser());
+    public Vaccination vaccinationCreate(VaccinationRequestDto vaccinationRequestDto, int userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomApiException("회원을 찾지 못했습니다."));
+        Vaccination vaccination = vaccinationRequestDto.toEntity(user);
         vaccinationRepository.save(vaccination);
         return vaccination;
     }
