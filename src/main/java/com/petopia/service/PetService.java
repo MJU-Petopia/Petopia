@@ -70,7 +70,8 @@ public class PetService {
     @Transactional
     public void petDelete(int petId, int userId) {
         Pet pet = petRepository.findById(petId).orElseThrow(() -> new CustomApiException("반려동물을 찾지 못했습니다."));
-        petRepository.mDelete(pet.getId(), userId);
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomApiException("회원을 찾지 못했습니다."));
+        petRepository.mDelete(pet.getId(), user.getId());
     }
 
 
