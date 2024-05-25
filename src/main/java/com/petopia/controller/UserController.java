@@ -45,21 +45,11 @@ public class UserController {
     // 회원 수정
     @PatchMapping("{id}")
     public ResponseEntity<?> update(@PathVariable int id,
-                               @RequestBody @Valid UserUpdateDto userUpdateDto,
-                               BindingResult bindingResult,
+                               @RequestBody UserUpdateDto userUpdateDto,
                                @AuthenticationPrincipal PrincipalDetails principalDetails) {
-
-        if(bindingResult.hasErrors()){
-            Map<String, String> errorMap = new HashMap<>();
-            for(FieldError error : bindingResult.getFieldErrors()) {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            throw new CustomValidationApiException("유효성 검사 실패", errorMap);
-        } else {
-            User userEntity = userService.userEdit(id, userUpdateDto.toEntity());
-            principalDetails.setUser(userEntity);
-            return new ResponseEntity<>(new CMRespDto<>(1, "회원수정 성공", userEntity), HttpStatus.OK);
-        }
+        User userEntity = userService.userEdit(id, userUpdateDto.toEntity());
+        principalDetails.setUser(userEntity);
+        return new ResponseEntity<>(new CMRespDto<>(1, "회원수정 성공", userEntity), HttpStatus.OK);
     }
 
     // 회원 탈퇴
