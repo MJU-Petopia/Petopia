@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 public class UserUpdateDto {
 
-    private String username;
+    private String name;
     private String phone;
     private String gender;
 
     public User toEntity(){
         return User.builder()
-                .username(username).phone(phone).gender(gender).build();
+                .name(name).phone(phone).gender(gender).build();
     }
 }
