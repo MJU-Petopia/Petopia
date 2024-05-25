@@ -37,12 +37,13 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         int id = principal.getUser().getId();
         String username = principal.getUser().getUsername();
+        String name = principal.getUser().getName();
         String email = principal.getUser().getEmail();
         String gender = principal.getUser().getGender();
         String phone = principal.getUser().getPhone();
 
 
-        String redirectUrl = "http://localhost:3000/verification?id=" + id + "&username=" + username + "&email=" + email + "&gender=" + gender + "&phone=" + phone;
+        String redirectUrl = "http://localhost:3000/verification?id=" + id + "&username=" + username + "&name=" + name + "&email=" + email + "&gender=" + gender + "&phone=" + phone;
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 }
