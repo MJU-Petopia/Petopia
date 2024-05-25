@@ -1,6 +1,5 @@
 package com.petopia.controller;
 
-import com.petopia.config.auth.PrincipalDetails;
 import com.petopia.domain.comment.Comment;
 import com.petopia.request.comment.CommentDto;
 import com.petopia.response.CMRespDto;
@@ -8,7 +7,6 @@ import com.petopia.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

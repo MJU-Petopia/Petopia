@@ -1,6 +1,5 @@
 package com.petopia.service;
 
-import com.petopia.config.auth.PrincipalDetails;
 import com.petopia.domain.user.User;
 import com.petopia.domain.user.UserRepository;
 import com.petopia.domain.vaccination.Vaccination;

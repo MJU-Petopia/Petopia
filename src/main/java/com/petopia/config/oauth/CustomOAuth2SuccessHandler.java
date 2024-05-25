@@ -1,8 +1,6 @@
 package com.petopia.config.oauth;
 
 import com.petopia.config.auth.PrincipalDetails;
-import com.petopia.domain.user.User;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
@@ -10,12 +8,10 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 @Component
 public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -47,7 +43,6 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
 
         String redirectUrl = "http://localhost:3000/verification?accessToken=" + tokenValue + "?id=" + id + "?username=" + username + "?email=" + email + "?gender=" + gender + "?phone=" + phone;
-//        String redirectUrl = "/api/user/verification?accessToken=" + tokenValue;
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 }

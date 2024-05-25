@@ -1,6 +1,5 @@
 package com.petopia.service;
 
-import com.petopia.config.auth.PrincipalDetails;
 import com.petopia.domain.post.Post;
 import com.petopia.domain.post.PostRepository;
 import com.petopia.domain.user.User;
@@ -15,10 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

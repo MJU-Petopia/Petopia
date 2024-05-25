@@ -1,6 +1,5 @@
 package com.petopia.controller;
 
-import com.petopia.config.auth.PrincipalDetails;
 import com.petopia.domain.user.User;
 import com.petopia.handler.ex.CustomValidationApiException;
 import com.petopia.request.auth.SignupDto;
@@ -10,7 +9,6 @@ import com.petopia.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
