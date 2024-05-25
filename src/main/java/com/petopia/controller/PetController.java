@@ -76,8 +76,8 @@ public class PetController {
 
     // 반려동물 삭제
     @DeleteMapping("/api/pet/petId={petId}/userId={userId}")
-    public void petDelete(@PathVariable int petId, @PathVariable int userId) {
+    public ResponseEntity<?> petDelete(@PathVariable int petId, @PathVariable int userId) {
         petService.petDelete(petId, userId);
-//        return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 삭제 성공", null),HttpStatus.OK);
+        return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 삭제 성공", null),HttpStatus.OK);
     }
 }
