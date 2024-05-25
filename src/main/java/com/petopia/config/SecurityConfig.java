@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint() // oauth2 로그인을 하면 최종 응답으로 회원정보를 바로 받을 수 있다.
                 .userService(oauth2DetailsService);
         http.logout()
-                .logoutUrl("logout")
+                .logoutUrl("/logout")
                 .logoutSuccessHandler((request, response, authentication) -> {
                     response.sendRedirect("http://localhost:3000/login");
                 });
