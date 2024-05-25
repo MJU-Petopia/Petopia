@@ -14,5 +14,5 @@ public interface PetRepository extends JpaRepository<Pet, Integer> {
 
     @Modifying
     @Query(value = "DELETE FROM Post WHERE id=:petId AND userId =:userId", nativeQuery = true)
-    void mDelete(int petId, @Param("userId") int userId);
+    void mDelete(@Param("petId")int petId, @Param("userId") int userId);
 }
