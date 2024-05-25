@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @Component
 public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -38,12 +39,13 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         int id = principal.getUser().getId();
         String username = principal.getUser().getUsername();
         String name = principal.getUser().getName();
+        name = URLEncoder.encode(name, "UTF-8");
         String email = principal.getUser().getEmail();
         String gender = principal.getUser().getGender();
         String phone = principal.getUser().getPhone();
 
 
-        String redirectUrl = "http://localhost:3000/verification?id=" + id + "&username=" + username + "&email=" + email + "&gender=" + gender + "&phone=" + phone;
+        String redirectUrl = "http://localhost:3000/verification?id=" + id + "&username=" + username + "&name=" + name + "&email=" + email + "&gender=" + gender + "&phone=" + phone;
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 }
