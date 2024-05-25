@@ -38,10 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
-                .loginProcessingUrl("/auth/signin")
-                .defaultSuccessUrl("/")
-                .and()
                 .oauth2Login()
                 .successHandler(new CustomOAuth2SuccessHandler(authorizedClientService))
                 .userInfoEndpoint() // oauth2 로그인을 하면 최종 응답으로 회원정보를 바로 받을 수 있다.
