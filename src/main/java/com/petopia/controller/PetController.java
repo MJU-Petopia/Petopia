@@ -29,8 +29,8 @@ public class PetController {
 
     // 모든 반려동물 조회
     @GetMapping("/api/pet")
-    public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable){
-        Page<Pet> pets = petService.petsRead(pageable);
+    public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        Page<Pet> pets = petService.petsRead(pageable, principalDetails.getUser().getId());
         return new ResponseEntity<>(new CMRespDto<>(1, "조회 성공", pets), HttpStatus.OK);
     }
 

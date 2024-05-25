@@ -28,8 +28,8 @@ public class PetService {
 
     // 모든 반려동물 조회
     @Transactional(readOnly = true)
-    public Page<Pet> petsRead(Pageable pageable){
-        Page<Pet> pets = petRepository.mList(pageable);
+    public Page<Pet> petsRead(Pageable pageable, int userId){
+        Page<Pet> pets = petRepository.mList(pageable, userId);
         return pets;
     }
 
