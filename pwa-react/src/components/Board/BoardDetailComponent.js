@@ -127,7 +127,7 @@ const InputBtn = styled.div`
     color: gray;
 `;
 
-const BoardDetailComponent = ({commentlist, comment, setComment, overlay, setOverlay, feed, dateFormatter,deleteFeedAsync,addCommentAsync,addCommentAction}) => {
+const BoardDetailComponent = ({commentlist, comment, setComment, overlay, setOverlay, feed, dateFormatter,deleteFeedAsync,addCommentAsync,addCommentAction, deleteCommentAction, deleteCommentAsync}) => {
 
     const navigate = useNavigate();
 
@@ -135,7 +135,7 @@ const BoardDetailComponent = ({commentlist, comment, setComment, overlay, setOve
         navigate(`/edit/board/${id}`)
     })
 
-    const onDeleteClicked = async (feed) => {
+    const onDeleteClicked = async () => {
         const userid = window.sessionStorage.getItem('id');
         await deleteFeedAsync([feed.id, userid]);
         navigate('/')
@@ -181,28 +181,27 @@ const BoardDetailComponent = ({commentlist, comment, setComment, overlay, setOve
             </AdditionalWrapper>
             {commentlist &&
                 commentlist.map(comment => {
-                    const onEditClicked = (() => {
-                        console.log(`댓글${comment} 수정`)
-                    })
                     const onDeleteClicked = (() => {
-                        console.log(`댓글${comment} 삭제`)
+                        const userid = window.sessionStorage.getItem('id')
+                        deleteCommentAsync([comment.id, userid]);
+                        deleteCommentAction(comment.id)
                     })
 
                     return (<div key={comment.id} style={{borderTop: '1px solid lightgray'}}>
-                        <BoardCommentcomponent dateFormmater={dateFormatter} comment={comment} onEditClicked={onEditClicked} onDeleteClicked={onDeleteClicked}/>
+                        <BoardCommentcomponent dateFormmater={dateFormatter} comment={comment} onDeleteClicked={onDeleteClicked}/>
                     </div>)
                 })
             }
             <InputWrapper>
                 <Input type='text' value={comment} onChange={e => setComment(e.target.value)} placeholder='comment input...'/>
-                <InputBtn onClick={() => {
-                    const userid = window.sessionStorage.getItem('id');
+                <InputBtn onClick={ async () => {
+                    const userid = Number(window.sessionStorage.getItem('id'));
                     const data = {
                         "comment": comment,
                         "postId": Number( window.location.pathname.split('/').pop())
                     }
                     addCommentAsync([userid, data]);
-                    addCommentAction({
+                    await addCommentAction({
                         id: 'temporary_id',
                         comment: comment,
                         user: {
@@ -211,6 +210,7 @@ const BoardDetailComponent = ({commentlist, comment, setComment, overlay, setOve
                         },
                         createDate: new Date().getTime()
                     })
+                    window.location.reload();
                 }}>
                     <IoSend />
                 </InputBtn>

@@ -21,9 +21,10 @@ const Overlays = styled.div`
             font-size: 14px;
         }
 
-        &:first-child {
-            border-bottom: 1px solid lightgray;
-        }
+    }
+
+    .edit {
+        border-bottom: 1px solid lightgray;
     }
 
     .delete {
@@ -31,13 +32,13 @@ const Overlays = styled.div`
     }
 `;
 
-const BoardOverlayComponent = ({feed, onEditClicked, onDeleteClicked, isSub}) => {
+const BoardOverlayComponent = ({onEditClicked, onDeleteClicked, isSub}) => {
     return (
         <Overlays $isSub={isSub}>
-            <div className='edit' onClick={() => onEditClicked()}>
+            {!isSub && <div className='edit' onClick={() => onEditClicked()}>
                 <FaPencil/><span>수정</span>
-            </div>
-            <div className='delete' onClick={() => onDeleteClicked(feed)}>
+            </div>}
+            <div className='delete' onClick={() => onDeleteClicked()}>
                 <FaTrashCan /><span>삭제</span>
             </div>
         </Overlays>

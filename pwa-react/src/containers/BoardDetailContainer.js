@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import BoardDetailComponent from '../components/Board/BoardDetailComponent';
 import { connect } from 'react-redux';
-import { deleteFeedAsync, getFeedDetailAsync, onInputChange, addCommentAction, addCommentAsync } from '../modules/Borad';
+import { deleteFeedAsync, getFeedDetailAsync, onInputChange, addCommentAction, addCommentAsync, deleteCommentAction, deleteCommentAsync} from '../modules/Borad';
 import { useParams } from 'react-router-dom';
 import LoadingComponent from '../components/Loading/LoadingComponent';
 
 
-const BoardDetailContainer = ({comments, input, feed, loading, getFeedDetailAsync, deleteFeedAsync, onInputChange, addCommentAction, addCommentAsync}) => {
+const BoardDetailContainer = ({comments, input, feed, loading, getFeedDetailAsync, deleteFeedAsync, onInputChange, addCommentAction, addCommentAsync, deleteCommentAction, deleteCommentAsync}) => {
 
     const [overlay, setOverlay] = useState(false);
     const params = useParams();
@@ -29,6 +29,8 @@ const BoardDetailContainer = ({comments, input, feed, loading, getFeedDetailAsyn
                 feed={feed}
                 commentlist={comments}
                 comment={input}
+                deleteCommentAction={deleteCommentAction}
+                deleteCommentAsync={deleteCommentAsync}
                 addCommentAction={addCommentAction}
                 addCommentAsync={addCommentAsync}
                 setComment={onInputChange}
@@ -50,5 +52,7 @@ export default connect(({Board, Loading}) => ({
     deleteFeedAsync,
     onInputChange,
     addCommentAction,
-    addCommentAsync
+    addCommentAsync,
+    deleteCommentAction,
+    deleteCommentAsync
 })(BoardDetailContainer);

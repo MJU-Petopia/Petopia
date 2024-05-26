@@ -11,6 +11,7 @@ export const addBoard = (id ,data) => axios.post(`http://localhost:8080/api/post
 export const editBoard = (id, data) => axios.patch(`http://localhost:8080/api/post/${id}`, data);
 export const deleteBoard = (postid, userid) => axios.delete(`http://localhost:8080/api/post/postId=${postid}/userId=${userid}`);
 export const addComment = (id, data) => axios.post(`http://localhost:8080/api/comment/userId=${id}`, data);
+export const deleteComment = (commentid, userid) => axios.delete(`http://localhost:8080/api/comment/commentId=${commentid}/userId=${userid}`);
 
 // 프로필 파트
 export const getPetlist = id => axios.get(`http://localhost:8080/api/pet/all/userId=${id}`);

@@ -58,7 +58,7 @@ const Container = styled.div`
     }
 `;
 
-const BoardCommentcomponent = ({dateFormmater, comment, onDeleteClicked, onEditClicked}) => {
+const BoardCommentcomponent = ({dateFormmater, comment, onDeleteClicked}) => {
 
     const [overlay, setOverlay] = useState(false);
 
@@ -86,10 +86,10 @@ const BoardCommentcomponent = ({dateFormmater, comment, onDeleteClicked, onEditC
                 </div>
                 <div className='additional_part'>
                     <FaThumbsUp />
-                    <IoMdMore onClick={e => {
+                    {comment.user.id === Number(window.sessionStorage.getItem('id')) && <IoMdMore onClick={e => {
                         e.stopPropagation();
                         setOverlay(!overlay);
-                    }}/>
+                    }}/>}
                 </div>
             </div>
             <div className='body'>
@@ -101,7 +101,7 @@ const BoardCommentcomponent = ({dateFormmater, comment, onDeleteClicked, onEditC
                 </div>
             </div>
             
-            {overlay && <BoardOverlayComponent isSub={true} onEditClicked={onEditClicked} onDeleteClicked={onDeleteClicked}/>}
+            {overlay && <BoardOverlayComponent isSub={true} onDeleteClicked={onDeleteClicked}/>}
         </Container>
     );
 };
