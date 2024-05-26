@@ -21,6 +21,7 @@ const RoundDiv = styled.div`
     box-sizing: border-box;
     font-weight: bold;
     text-align:center;
+    flex-shrink: 0;
     line-height: ${props => props.height ? `${props.height}px` : '20px'};
 `;
 

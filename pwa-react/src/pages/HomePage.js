@@ -8,17 +8,14 @@ import BottomNavigationContainer from '../containers/BottomNavigationContainer';
 import VaccineScheduleContainer from '../containers/VaccineScheduleContainer';
 import { connect } from 'react-redux';
 import { getFeedAsync } from '../modules/Borad';
-import { getUserdataAsync } from '../modules/User';
+import { getPetlistAsync } from '../modules/Profile';
 
-const HomePage = ({tab, getFeedAsync,getUserdataAsync}) => {
+const HomePage = ({tab, getFeedAsync, getPetlistAsync}) => {
 
     useEffect(() => {
-        const accessToken = localStorage.getItem('accessToken');
+        const id = window.sessionStorage.getItem('id')
         getFeedAsync()
-        if (accessToken) {
-            console.log(accessToken)
-            getUserdataAsync(accessToken);
-        }
+        getPetlistAsync(id)
     }, [])
 
     return (
@@ -38,5 +35,5 @@ export default connect(({BottomNavigation}) => ({
     tab: BottomNavigation.tab
 }),{
     getFeedAsync,
-    getUserdataAsync
+    getPetlistAsync
 })(HomePage);

@@ -1,6 +1,6 @@
 import React from 'react';
 import AppbarComponent from '../components/AppbarComponent';
-import PetDetailComponent from '../components/PetDetail/PetDetailComponent';
+import PetDetailContainer from '../containers/PetDetailContainer';
 
 const PetDetailPage = () => {
     return (
@@ -8,7 +8,7 @@ const PetDetailPage = () => {
             <AppbarComponent isHome={false}>
                 반려동물 정보
             </AppbarComponent>
-            <PetDetailComponent />
+            <PetDetailContainer />
         </>
     );
 };

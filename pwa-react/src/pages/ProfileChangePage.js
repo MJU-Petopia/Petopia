@@ -1,6 +1,6 @@
 import React from 'react';
 import AppbarComponent from '../components/AppbarComponent';
-import ProfileChangeComponent from '../components/Profile/ProfileChangeComponent';
+import ProfileChangeContainer from '../containers/ProfileChangeContainer';
 
 const ProfileChangePage = () => {
     return (
@@ -8,7 +8,7 @@ const ProfileChangePage = () => {
             <AppbarComponent isHome={false}>
                 프로필 변경
             </AppbarComponent>
-            <ProfileChangeComponent/>
+            <ProfileChangeContainer />
         </>
     );
 };

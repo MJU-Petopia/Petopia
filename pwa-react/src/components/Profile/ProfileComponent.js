@@ -25,6 +25,12 @@ const ProfileWrapper = styled.div`
     .profileinfo {
         margin-left: 10px;
         font-size: 15px;
+        box-sizing: border-box;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
         span {
             display: block;
 
@@ -58,7 +64,8 @@ const PetWrapper = styled.div`
 const OtherInfoWrapper = styled.div`
     padding-top: 10px;
     border-bottom: 5px solid lightgray;
-    > div:not(:first-child){
+    > div:not(:first-child), .add {
+        display: block;
         border-top: 1px solid lightgray;
         padding: 15px 0 15px 30px;
     }
@@ -69,13 +76,13 @@ const OtherInfoWrapper = styled.div`
 `;
 
 
-const ProfileComponent = ({name, email, petList}) => {
+const ProfileComponent = ({name, email, petList, deleteUserAsync}) => {
 
     const navigate = useNavigate();
     return (
         <Container>
             <ProfileWrapper>
-                <CustomRoundDiv width={50} height={50} borderradius={25}/>
+                <CustomRoundDiv width={50} height={50} borderradius={25} />
                 <div className='profileinfo'>
                     <span>{name}</span>
                     <span>{email}</span>
@@ -90,12 +97,14 @@ const ProfileComponent = ({name, email, petList}) => {
             </PetWrapper>
             <OtherInfoWrapper>
                 <div className='title'>내정보</div>
-                <div>프로필변경</div>
+                <div onClick={() => navigate(`/profilechange/${window.sessionStorage.getItem('id')}`)}>프로필변경</div>
             </OtherInfoWrapper>
             <OtherInfoWrapper>
                 <div className='title'>회원정보</div>
-                <div className='sign'>로그아웃</div>
-                <div className='sign'>회원탈퇴</div>
+                <a href='http://localhost:8080/logout'className='add sign'><div>로그아웃</div></a>
+                <div className='sign' onClick={async () => {
+                    await deleteUserAsync(window.sessionStorage.getItem('id'))
+                }}>회원탈퇴</div>
             </OtherInfoWrapper>
         </Container>
     );
