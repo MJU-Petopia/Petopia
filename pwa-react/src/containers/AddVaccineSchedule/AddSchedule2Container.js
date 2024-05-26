@@ -41,6 +41,14 @@ const ItemWrapper = styled.div`
     }
 `;
 
+const NopetWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 const PetListWrapper = styled.div`
     height: 300px;
     width: 250px;
@@ -51,8 +59,7 @@ const PetListWrapper = styled.div`
     box-sizing: border-box;
 `;
 
-const AddSchedule2Container = ({pet_id, onPetChanged}) => {
-    const petlist = ['따릉이', '똘이', '초코', '비비']
+const AddSchedule2Container = ({pet_id, petlist, onPetChanged}) => {
 
     const navigate = useNavigate();
     const onNextClicked = () => {
@@ -69,7 +76,7 @@ const AddSchedule2Container = ({pet_id, onPetChanged}) => {
             <Container>
                 <span>대상을 특정하여 주세요</span>
                 <PetListWrapper>
-                    {petlist.map(pet => <PetItem pet={pet} pet_id={pet_id} key={pet} onClick={onPetChanged}/>)}
+                    {petlist.length > 0 ?petlist.map(pet => <PetItem pet={pet} pet_id={pet_id} key={pet.id} onClick={onPetChanged}/>) : <NopetWrapper>등록된 반려동물이 없습니다.</NopetWrapper>}
                 </PetListWrapper>
                 <CustomRoundDiv height={40} width={90} margin={'20px 0 0 0'} backgroundcolor={pet_id ? "#f02b70" : 'lightgray'} onClick={onNextClicked}>
                     다음
@@ -80,17 +87,18 @@ const AddSchedule2Container = ({pet_id, onPetChanged}) => {
 };
 
 const PetItem = ({pet, pet_id, onClick}) => {
-    return <ItemWrapper onClick={() => onClick(pet)}>
+    return <ItemWrapper onClick={() => onClick(pet.id)}>
         <div style={{display: 'inline-flex'}}>
             <CustomRoundDiv margin={'0 8px 0 0'}/>
-            {pet}            
+            {pet.name}            
         </div>
-        <IoMdCheckmark className={pet === pet_id ? 'active' : 'deactive'}/>
+        <IoMdCheckmark className={pet.id === pet_id ? 'active' : 'deactive'}/>
     </ItemWrapper>
 }
 
-export default connect(({VaccineSchedule}) => ({
-    pet_id: VaccineSchedule.pet_id
+export default connect(({VaccineSchedule, Profile}) => ({
+    pet_id: VaccineSchedule.pet_id,
+    petlist: Profile.pet,
 }),{
     onPetChanged
 })(AddSchedule2Container);

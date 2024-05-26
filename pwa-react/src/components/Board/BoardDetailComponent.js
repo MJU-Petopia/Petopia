@@ -45,30 +45,30 @@ const ContentWrapper = styled.div`
     margin-bottom: 20px;
 `;
 
-const FileWrapper = styled.div`
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    overflow-x: auto;
-    gap: 10px;
-    margin-bottom: 20px;
+// const FileWrapper = styled.div`
+//     width: 100%;
+//     box-sizing: border-box;
+//     display: flex;
+//     overflow-x: auto;
+//     gap: 10px;
+//     margin-bottom: 20px;
 
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-`;
+//     -ms-overflow-style: none;
+//     scrollbar-width: none;
+//     &::-webkit-scrollbar {
+//         display: none;
+//     }
+// `;
 
-const FileItem = styled.div`
-    height: 80px;
-    width: 80px;
-    border-radius: 12px;
-    background-color: lightgray;
-    background-position: center;
-    background-size: cover;
-    flex: 0 0 auto;
-`;
+// const FileItem = styled.div`
+//     height: 80px;
+//     width: 80px;
+//     border-radius: 12px;
+//     background-color: lightgray;
+//     background-position: center;
+//     background-size: cover;
+//     flex: 0 0 auto;
+// `;
 
 const AdditionalWrapper = styled.div`
     display: flex;
@@ -128,10 +128,6 @@ const InputBtn = styled.div`
 
 const BoardDetailComponent = ({comment, setComment, overlay, setOverlay, feed, dateFormatter}) => {
 
-    const filelist = ['a','b','c','d','e','f','g','h','i'];
-    // const filelist = []
-    const commentList = [1,2,3,4,5];
-
     const onEditClicked = (() => {
         console.log('게시물 수정');
     })
@@ -166,10 +162,10 @@ const BoardDetailComponent = ({comment, setComment, overlay, setOverlay, feed, d
             <ContentWrapper>
                 {feed.content}
             </ContentWrapper>
-            {filelist.length > 0 && 
+            {/* {filelist.length > 0 && 
                 <FileWrapper>
                     {filelist.map(file => <FileItem key={file}/>)}
-                </FileWrapper>}
+                </FileWrapper>} */}
             <AdditionalWrapper>
                 <div>
                     <FaThumbsUp className='icon'/><span>0</span>
@@ -194,17 +190,19 @@ const BoardDetailComponent = ({comment, setComment, overlay, setOverlay, feed, d
             }
             <InputWrapper>
                 <Input type='text' value={comment} onChange={e => setComment(e.target.value)} placeholder='comment input...'/>
-                <InputBtn onClick={() => {}}>
+                <InputBtn onClick={() => {
+
+                }}>
                     <IoSend />
                 </InputBtn>
             </InputWrapper>
-
+            {feed.user.id === window.sessionStorage.getItem('id') && 
             <div className='more' onClick={(e) => {
                 e.stopPropagation()
                 setOverlay(!overlay)
             }}> 
                 <IoMdMore />
-            </div>
+            </div>}
             {overlay && <BoardOverlayComponent onEditClicked={onEditClicked} onDeleteClicked={onDeleteClicked}/>}
         </Container>
     );

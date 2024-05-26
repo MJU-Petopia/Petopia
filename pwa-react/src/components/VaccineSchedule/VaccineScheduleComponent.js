@@ -15,12 +15,30 @@ const Container = styled.div`
 
 const VaccineScheduleComponent = ({schedule}) => {
 
-    let date_info = ''
+    let date_info = '';
+    const lst = [];
+    for (let i = 0; i < schedule.length; i++) {
+        const startDate = new Date(schedule[i].startDay);
+        const tempDate = new Date(startDate.getTime());
+        const endDate = new Date(tempDate.setMonth(tempDate.getMonth() + schedule[i].totalPeriod))
 
-    if (schedule.length !== 0){
+        while (startDate <= endDate) {
+            const data = {
+                date: new Date(startDate.getTime()),
+                pet_id: schedule[i].id,
+                pet_name: schedule[i].pet.name,
+                vaccine_name: schedule[i].vaccineType
+            }
+            lst.push(data);
+
+            startDate.setDate(startDate.getDate() + schedule[i].period);
+        }
+    }
+
+    if (lst.length !== 0){
         return (
-            <div style={{margin: '55px 0'}}>
-                {schedule.map((item) => {
+            <div style={{margin: '125px 0px 55px 0'}}>
+                {lst.sort((a,b) => a.date - b.date).map((item) => {
                     const info = `${item.date.getFullYear()}년 ${item.date.getMonth()+1}월`;
                     if (info === date_info) {
                         return <VaccineScheduleItem key={`${item.pet_id} ${item.date}`} schedule={item}/>
