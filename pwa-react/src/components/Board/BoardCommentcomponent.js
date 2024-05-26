@@ -103,7 +103,7 @@ const BoardCommentcomponent = ({numid, sub, isShort, subList, onDeleteClicked, o
                     <FaThumbsUp className='icon'/><span>0</span>
                 </div>
             </div>
-            {/* {subList && subList.map(sub => {
+            {subList && subList.map(sub => {
                 const onEditClicked = (() => {
                     console.log(`대댓글${sub} 수정`)
                 })
@@ -111,7 +111,7 @@ const BoardCommentcomponent = ({numid, sub, isShort, subList, onDeleteClicked, o
                     console.log(`대댓글${sub} 삭제`)
                 })
                 return <BoardCommentcomponent key={sub} sub={1} onEditClicked={onEditClicked} onDeleteClicked={onDeleteClicked}/>
-            })} */}
+            })}
             {overlay && <BoardOverlayComponent isSub={true} onEditClicked={onEditClicked} onDeleteClicked={onDeleteClicked}/>}
         </Container>
     );

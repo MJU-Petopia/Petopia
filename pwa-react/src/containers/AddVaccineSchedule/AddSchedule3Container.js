@@ -52,7 +52,7 @@ const ItemWrapper = styled.div`
     }
 `;
 
-const AddSchedule3Container = ({pet_id ,petlist, vaccine_name, onVaccineChanged}) => {
+const AddSchedule3Container = ({pet_id, vaccine_name, onVaccineChanged}) => {
 
     const navigate = useNavigate();
 
@@ -68,8 +68,6 @@ const AddSchedule3Container = ({pet_id ,petlist, vaccine_name, onVaccineChanged}
         }
     }
 
-    const type = petlist.filter(item => item.id === pet_id)[0].petType === '강아지' ? 'dog' : 'cat';
-    
     return (
         <>
             <AppbarComponent>
@@ -78,7 +76,7 @@ const AddSchedule3Container = ({pet_id ,petlist, vaccine_name, onVaccineChanged}
             <Container>
                 <span>접종 종류를 선택해주세요</span>
                 <VaccineListWrapper>
-                    {VaccineList[type].map(vaccine => <VaccineItem key={vaccine} vaccine={vaccine} vaccine_name={vaccine_name} onClick={onVaccineChanged}/>)}
+                    {VaccineList['dog'].map(vaccine => <VaccineItem key={vaccine} vaccine={vaccine} vaccine_name={vaccine_name} onClick={onVaccineChanged}/>)}
                 </VaccineListWrapper>
                 <CustomRoundDiv height={40} width={90} margin={'20px 0 0 0'} backgroundcolor={vaccine_name ? "#f02b70" : 'lightgray'} onClick={onNextClicked}>
                     다음
@@ -98,10 +96,9 @@ const VaccineItem = ({vaccine, vaccine_name, onClick}) => {
     )
 }
 
-export default connect(({VaccineSchedule, Profile}) => ({
+export default connect(({VaccineSchedule}) => ({
     vaccine_name: VaccineSchedule.vaccine_name,
-    pet_id: VaccineSchedule.pet_id,
-    petlist: Profile.pet
+    pet_id: VaccineSchedule.pet_id
 }),{
     onVaccineChanged
 })(AddSchedule3Container);
