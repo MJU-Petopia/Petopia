@@ -1,13 +1,10 @@
 import axios from 'axios';
 
-// 백신 일정 파트
-export const getScheduleList = id => axios.get(`http://localhost:8080/api/vaccination/userId=${id}`);
-export const addSchedule = (userid, petid, data) => axios.post(`http://localhost:8080/api/vaccination/userId=${userid}/petId=${petid}`, data);
 
 // 게시판 파트
 export const getBoard = () => axios.get('http://localhost:8080/api/post');
 export const getBoardDetail = id => axios.get(`http://localhost:8080/api/post/${id}`);
-export const addBoard = (id ,data) => axios.post(`http://localhost:8080/api/post/userId=${id}`, data);
+export const addBoard = feedData => axios.post('http://localhost:8080/api/post');
 
 // 프로필 파트
 export const getPetlist = id => axios.get(`http://localhost:8080/api/pet/all/userId=${id}`);

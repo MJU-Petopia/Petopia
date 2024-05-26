@@ -1,30 +1,20 @@
 import { createAction, handleActions } from "redux-actions";
-import createRequestThunk from "../lib/createRequestThunk";
-import { getScheduleList, addSchedule } from "../lib/api";
 
-const GET_SCHEDULE_LIST = 'VaccineSchedule/GET_SCHEDULE_LIST';
-const GET_SCHEDULE_LIST_SUCCESS = 'VaccineSchedule/GET_SCHEDULE_LIST_SUCCESS';
-const ADD_SCHEDULE = 'VaccineSchedule/ADD_SCHEDULE';
-const ADD_SCHEDULE_SUCCESS = 'VaccineSchedule/ADD_SCHEDULE_SUCCESS';
-
+const ON_SCHEDULE_ADDED = 'VaccineSchedule/ON_SCHEDULE_ADDED';
+const ON_SCHEDULE_DELETED = 'VaccineSchedule/ON_SCHEDULE_DELETED';
 const ON_DATE_CHANGED = 'VaccineSchedule/ON_DATE_CHANGED';
 const ON_PET_CHANGED = 'VaccineSchedule/ON_PET_CHANGED';
 const ON_VACCINE_CHANGED = 'VaccineSchedule/ON_VACCINE_CHANGED';
 const ON_TERM_CHANGED = 'VaccineSchedule/ON_TERM_CHANGE';
 const ON_ENDDATE_CHANGED = 'VaccineSchedule/ON_ENDDATE_CHANGED';
-const ON_FILTER_CHANGED = 'VaccineSchedule/ON_FILTER_CHANGED';
-const RESETTING = 'VaccineSchedule/RESETTING';
 
-export const getScheduleListAsync = createRequestThunk(GET_SCHEDULE_LIST, getScheduleList);
-export const addScheduleAsync = createRequestThunk(ADD_SCHEDULE, addSchedule);
-
+export const onScheduleAdded = createAction(ON_SCHEDULE_ADDED, info => info);
+export const onScheduleDeleted = createAction(ON_SCHEDULE_DELETED, id => id);
 export const onDateChanged = createAction(ON_DATE_CHANGED,date => date);
 export const onPetChanged = createAction(ON_PET_CHANGED, pet => pet);
 export const onVaccineChanged = createAction(ON_VACCINE_CHANGED, vaccine => vaccine);
 export const onTermChagned = createAction(ON_TERM_CHANGED, std_term => Number(std_term));
 export const onEnddateChanged = createAction(ON_ENDDATE_CHANGED, enddate => Number(enddate));
-export const onFilterChanged = createAction(ON_FILTER_CHANGED, id => id);
-export const resetting = createAction(RESETTING);
 
 const initialstate = {
     schedule : [],
@@ -33,22 +23,22 @@ const initialstate = {
     pet_id: null,
     vaccine_name: null,
     std_term: null,
-    filter_id: null,
+    
 }
 
 const VaccineSchedule = handleActions(
     {
-        [GET_SCHEDULE_LIST_SUCCESS]: (state, action) => ({
+        [ON_SCHEDULE_ADDED]: (state, action) => ({
             ...state,
-            schedule: action.payload.data.data.content
+            schedule: state.schedule.concat(action.payload).toSorted((a,b) => a.date - b.date)
         }),
-        [ADD_SCHEDULE_SUCCESS]: (state, action) => ({
+        [ON_SCHEDULE_DELETED]: (state, action) => ({
             ...state,
-            schedule: state.schedule.concat(action.payload.data.data)
+            schedule: state.schedule.filter(item => item.schedule_id !== action.payload)
         }),
         [ON_DATE_CHANGED]: (state, action) => ({
             ...state,
-            start_date: action.payload
+            start_date: new Date(action.payload)
         }),
         [ON_PET_CHANGED]: (state, action) => ({
             ...state,
@@ -62,23 +52,21 @@ const VaccineSchedule = handleActions(
             ...state,
             std_term: action.payload
         }),
-        [ON_ENDDATE_CHANGED]: (state, action) => ({
-            ...state,
-            end_date: action.payload
-        }),
-        [ON_FILTER_CHANGED]: (state, action) => ({
-            ...state,
-            filter_id: state.filter_id === action.payload ? null : action.payload,
-        }),
-        [RESETTING]: (state, action) => ({
-            ...state,
-            start_date: new Date(),
-            end_date: null,
-            pet_id: null,
-            vaccine_name: null,
-            std_term: null,
-            filter_id: null,
-        })
+        [ON_ENDDATE_CHANGED]: (state, action) => {
+            if (action.payload) {
+                const date = new Date(state.start_date.getTime())
+                date.setMonth(date.getMonth() + action.payload)
+                return {
+                    ...state,
+                    end_date: date
+                }
+            } else {
+                return {
+                    ...state,
+                    end_date:null
+                }
+            }
+        }
     }, initialstate
 )
 
