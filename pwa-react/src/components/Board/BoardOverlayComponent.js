@@ -31,13 +31,13 @@ const Overlays = styled.div`
     }
 `;
 
-const BoardOverlayComponent = ({onEditClicked, onDeleteClicked, isSub}) => {
+const BoardOverlayComponent = ({feed, onEditClicked, onDeleteClicked, isSub}) => {
     return (
         <Overlays $isSub={isSub}>
             <div className='edit' onClick={() => onEditClicked()}>
                 <FaPencil/><span>수정</span>
             </div>
-            <div className='delete' onClick={() => onDeleteClicked()}>
+            <div className='delete' onClick={() => onDeleteClicked(feed)}>
                 <FaTrashCan /><span>삭제</span>
             </div>
         </Overlays>

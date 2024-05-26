@@ -7,7 +7,10 @@ export const getScheduleList = id => axios.get(`http://localhost:8080/api/vaccin
 // 게시판 파트
 export const getBoard = () => axios.get('http://localhost:8080/api/post');
 export const getBoardDetail = id => axios.get(`http://localhost:8080/api/post/${id}`);
-export const addBoard = feedData => axios.post('http://localhost:8080/api/post');
+export const addBoard = (id ,data) => axios.post(`http://localhost:8080/api/post/userId=${id}`, data);
+export const editBoard = (id, data) => axios.patch(`http://localhost:8080/api/post/${id}`, data);
+export const deleteBoard = (postid, userid) => axios.delete(`http://localhost:8080/api/post/postId=${postid}/userId=${userid}`);
+export const addComment = (id, data) => axios.post(`http://localhost:8080/api/comment/userId=${id}`, data);
 
 // 프로필 파트
 export const getPetlist = id => axios.get(`http://localhost:8080/api/pet/all/userId=${id}`);

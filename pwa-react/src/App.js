@@ -60,6 +60,7 @@ const App = () => {
         <Route path='/board/:id' element={<ProtectedRoute><BoardDetailPage/></ProtectedRoute>}></Route>
         <Route path='/addboard' element={<ProtectedRoute><AddBoardPage/></ProtectedRoute>}></Route>
         <Route path='/edit/pet/:id' element={<ProtectedRoute><AddpetPage/></ProtectedRoute>}></Route>
+        <Route path='/edit/board/:id' element={<ProtectedRoute><AddBoardPage/></ProtectedRoute>}></Route>
       </Routes>
     </>
   );

@@ -53,7 +53,7 @@ const SubButtonWrapper = styled.div`
     justify-content: center;
 `;
 
-const BoardAddComponent = ({title, content, file, setTitle, setContent, setFile, addFeedAsync}) => {
+const BoardAddComponent = ({title, content, setTitle, setContent, addFeedAsync, editFeedAsync}) => {
 
     const navigate = useNavigate()
 
@@ -63,15 +63,24 @@ const BoardAddComponent = ({title, content, file, setTitle, setContent, setFile,
             <Input type='text' maxLength={20} value={title} onChange={e => setTitle(e.target.value)}/>
             <div className='label'>내용</div>
             <Textarea maxLength={300} value={content} onChange={e => setContent(e.target.value)}/>
-            <div className='label'>사진</div>
-            <CustomMultipleFileInput file={file} setFile={setFile}/>
+            {/* <div className='label'>사진</div>
+            <CustomMultipleFileInput file={file} setFile={setFile}/> */}
             <SubButtonWrapper>
                 <CustomRoundDiv height={40} width={90} backgroundcolor={title && content ? '#f02b70' : 'lightgray'} onClick={async () => {
                     if (title && content) {
-                        addFeedAsync({
+                        const data = {
                             "title": title,
                             "content": content
-                        }).then(response => navigate('/'))
+                        }
+                        if (window.location.pathname.search('edit') > 0){
+                            const id = window.location.pathname.split('/').pop();
+                            await editFeedAsync([id, data]);
+                            navigate(-1);
+                        } else {
+                            const id = window.sessionStorage.getItem('id')
+                            await addFeedAsync([id, data]);
+                            navigate('/')
+                        }
                     } 
                 }}>
                     완료

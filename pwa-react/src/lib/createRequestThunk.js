@@ -18,8 +18,6 @@ export default function createRequestThunk(type, request) {
             console.log(e)
             dispatch({
                 type: FAILURE,
-                payload: e.response.error,
-                error: true
             })
             dispatch(finishLoading(type))
             throw e;
