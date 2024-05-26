@@ -7,6 +7,7 @@ import PetAddInfo from "./PetAddInfo";
 import Board from "./Borad";
 import Loading from "./Loading";
 import PetDetail from "./PetDetail";
+import BoardAddInfo from "./BoardAddInfo";
 
 const rootReducer = combineReducers({
     AIdiagnosis,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     Board,
     Loading,
     PetDetail,
+    BoardAddInfo
 });
 
 export default rootReducer

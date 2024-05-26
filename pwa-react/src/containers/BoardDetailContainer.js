@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import BoardDetailComponent from '../components/Board/BoardDetailComponent';
 import { connect } from 'react-redux';
-import { getFeedDetailAsync } from '../modules/Borad';
+import { deleteFeedAsync, getFeedDetailAsync, onInputChange, addCommentAction, addCommentAsync, deleteCommentAction, deleteCommentAsync} from '../modules/Borad';
 import { useParams } from 'react-router-dom';
 import LoadingComponent from '../components/Loading/LoadingComponent';
 
 
-const BoardDetailContainer = ({feed, loading, getFeedDetailAsync}) => {
+const BoardDetailContainer = ({comments, input, feed, loading, getFeedDetailAsync, deleteFeedAsync, onInputChange, addCommentAction, addCommentAsync, deleteCommentAction, deleteCommentAsync}) => {
 
-    const [comment, setComment] = useState('');
     const [overlay, setOverlay] = useState(false);
     const params = useParams();
 
@@ -28,10 +27,16 @@ const BoardDetailContainer = ({feed, loading, getFeedDetailAsync}) => {
             {!loading && feed && <BoardDetailComponent
                 dateFormatter={dateFormatter}
                 feed={feed}
-                comment={comment}
-                setComment={setComment}
+                commentlist={comments}
+                comment={input}
+                deleteCommentAction={deleteCommentAction}
+                deleteCommentAsync={deleteCommentAsync}
+                addCommentAction={addCommentAction}
+                addCommentAsync={addCommentAsync}
+                setComment={onInputChange}
                 overlay={overlay}
                 setOverlay={setOverlay}
+                deleteFeedAsync={deleteFeedAsync}
         />}
         </>
     );
@@ -39,7 +44,15 @@ const BoardDetailContainer = ({feed, loading, getFeedDetailAsync}) => {
 
 export default connect(({Board, Loading}) => ({
     feed: Board.feed,
+    comments: Board.comments,
+    input: Board.input,
     loading: Loading['Board/GET_FEED_DETAIL']
 }),{
-    getFeedDetailAsync
+    getFeedDetailAsync,
+    deleteFeedAsync,
+    onInputChange,
+    addCommentAction,
+    addCommentAsync,
+    deleteCommentAction,
+    deleteCommentAsync
 })(BoardDetailContainer);
