@@ -64,7 +64,7 @@ const VaccineScheduleItem = ({schedule}) => {
                     <span>{schedule.vaccine_name}</span>
                     <div>
                         <CustomRoundDiv margin={'0 7px 0 0'}/>
-                        <span>{schedule.pet_id}</span>
+                        <span>{schedule.pet_name}</span>
                     </div>
                 </Flexbox>
             </ScheduleItem>

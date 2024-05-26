@@ -63,8 +63,8 @@ const BoardAddComponent = ({title, content, file, setTitle, setContent, setFile,
             <Input type='text' maxLength={20} value={title} onChange={e => setTitle(e.target.value)}/>
             <div className='label'>내용</div>
             <Textarea maxLength={300} value={content} onChange={e => setContent(e.target.value)}/>
-            <div className='label'>사진</div>
-            <CustomMultipleFileInput file={file} setFile={setFile}/>
+            {/* <div className='label'>사진</div> */}
+            {/* <CustomMultipleFileInput file={file} setFile={setFile}/> */}
             <SubButtonWrapper>
                 <CustomRoundDiv height={40} width={90} backgroundcolor={title && content ? '#f02b70' : 'lightgray'} onClick={async () => {
                     if (title && content) {
