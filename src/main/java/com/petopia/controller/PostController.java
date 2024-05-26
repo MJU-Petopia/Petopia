@@ -67,9 +67,9 @@ public class PostController {
     }
 
     // 글 삭제
-    @DeleteMapping("/api/post/{postId}")
-    public ResponseEntity<?> postDelete(@PathVariable int postId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        postService.postDelete(postId, principalDetails.getUser().getId());
+    @DeleteMapping("/api/post/postId={postId}/userId={userId}")
+    public ResponseEntity<?> postDelete(@PathVariable int postId, @PathVariable int userId) {
+        postService.postDelete(postId, userId);
         return new ResponseEntity<>(new CMRespDto<>(1, "글 삭제 성공", null),HttpStatus.OK);
     }
 }
