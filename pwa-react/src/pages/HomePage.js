@@ -9,14 +9,28 @@ import VaccineScheduleContainer from '../containers/VaccineScheduleContainer';
 import { connect } from 'react-redux';
 import { getFeedAsync } from '../modules/Borad';
 import { getPetlistAsync } from '../modules/Profile';
+import { getScheduleListAsync, resetting } from '../modules/VaccineSchedule';
 
-const HomePage = ({tab, getFeedAsync, getPetlistAsync}) => {
+const HomePage = ({tab, getFeedAsync, getPetlistAsync, getScheduleListAsync,resetting}) => {
 
     useEffect(() => {
         const id = window.sessionStorage.getItem('id')
-        getFeedAsync()
         getPetlistAsync(id)
-    }, [])
+    }, [getPetlistAsync])
+
+    useEffect(() => {
+        getFeedAsync()
+    }, [getFeedAsync])
+
+
+    useEffect(() => {
+        const id = window.sessionStorage.getItem('id')
+        getScheduleListAsync(id)
+    }, [getScheduleListAsync])
+
+    useEffect(() => {
+        resetting()
+    },[resetting])
 
     return (
         <>
@@ -35,5 +49,7 @@ export default connect(({BottomNavigation}) => ({
     tab: BottomNavigation.tab
 }),{
     getFeedAsync,
-    getPetlistAsync
+    getPetlistAsync,
+    getScheduleListAsync,
+    resetting
 })(HomePage);

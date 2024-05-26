@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// 일정 등록 파트
+export const addSchedule = (userid, petid, data) => axios.post(`http://localhost:8080/api/vaccination/userId=${userid}/petId=${petid}`, data);
+export const getScheduleList = id => axios.get(`http://localhost:8080/api/vaccination/userId=${id}`);
 
 // 게시판 파트
 export const getBoard = () => axios.get('http://localhost:8080/api/post');
