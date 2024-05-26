@@ -1,7 +1,9 @@
 package com.petopia.domain.pet;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.petopia.domain.comment.Comment;
 import com.petopia.domain.user.User;
+import com.petopia.domain.vaccination.Vaccination;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -51,6 +54,10 @@ public class Pet {
     @JoinColumn(name = "userId")
     @ManyToOne
     private User user;
+
+    @JsonIgnoreProperties({"pet"})
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    private List<Vaccination> vaccinations;
 
     private LocalDateTime createDate;
 

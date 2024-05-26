@@ -1,6 +1,8 @@
 package com.petopia.domain.vaccination;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.petopia.domain.pet.Pet;
+import com.petopia.domain.post.Post;
 import com.petopia.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,9 +42,14 @@ public class Vaccination {
     @Column(nullable = false)
     private int totalPeriod;
     
-    // 동물 이름
-    @Column(nullable = false)
-    private String petName;
+//    // 동물 이름
+//    @Column(nullable = false)
+//    private String petName;
+
+    @JoinColumn(name = "petId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"user", "vaccinations"})
+    private Pet pet;
 
     @JsonIgnoreProperties({"posts", "pets", "vaccinations"})
     @JoinColumn(name = "userId")

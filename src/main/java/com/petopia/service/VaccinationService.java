@@ -1,5 +1,7 @@
 package com.petopia.service;
 
+import com.petopia.domain.pet.Pet;
+import com.petopia.domain.pet.PetRepository;
 import com.petopia.domain.user.User;
 import com.petopia.domain.user.UserRepository;
 import com.petopia.domain.vaccination.Vaccination;
@@ -19,6 +21,7 @@ public class VaccinationService {
 
     private final VaccinationRepository vaccinationRepository;
     private final UserRepository userRepository;
+    private final PetRepository petRepository;
 
 //    // 예방접종 등록
 //    @Transactional
@@ -30,9 +33,10 @@ public class VaccinationService {
 
     // 예방접종 등록
     @Transactional
-    public Vaccination vaccinationCreate(VaccinationRequestDto vaccinationRequestDto, int userId) {
+    public Vaccination vaccinationCreate(VaccinationRequestDto vaccinationRequestDto, int userId, int petId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomApiException("회원을 찾지 못했습니다."));
-        Vaccination vaccination = vaccinationRequestDto.toEntity(user);
+        Pet pet = petRepository.findByIdAndUserId(petId, user.getId()).orElseThrow(() -> new CustomApiException("반려동물을 찾지 못했습니다."));
+        Vaccination vaccination = vaccinationRequestDto.toEntity(user, pet);
         vaccinationRepository.save(vaccination);
         return vaccination;
     }

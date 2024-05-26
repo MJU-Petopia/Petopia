@@ -26,10 +26,10 @@ public class VaccinationController {
 //    }
 
     // 예방접종 등록
-    @PostMapping("/api/vaccination/userId={userId}")
-    public ResponseEntity<?> petCreate(@RequestBody VaccinationRequestDto vaccinationRequestDto, @PathVariable int userId) {
-        Vaccination vaccination = vaccinationService.vaccinationCreate(vaccinationRequestDto, userId);
-        return new ResponseEntity<>(new CMRespDto<>(1, "반려동물 등록 완료", vaccination), HttpStatus.CREATED);
+    @PostMapping("/api/vaccination/userId={userId}/petId={petId}")
+    public ResponseEntity<?> petCreate(@RequestBody VaccinationRequestDto vaccinationRequestDto, @PathVariable int userId, @PathVariable int petId) {
+        Vaccination vaccination = vaccinationService.vaccinationCreate(vaccinationRequestDto, userId, petId);
+        return new ResponseEntity<>(new CMRespDto<>(1, "예방접종 등록 완료", vaccination), HttpStatus.CREATED);
     }
 
 //    // 모든 예방접종 조회

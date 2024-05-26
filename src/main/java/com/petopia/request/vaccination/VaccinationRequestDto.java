@@ -1,6 +1,7 @@
 package com.petopia.request.vaccination;
 
 
+import com.petopia.domain.pet.Pet;
 import com.petopia.domain.user.User;
 import com.petopia.domain.vaccination.Vaccination;
 import lombok.Data;
@@ -20,16 +21,16 @@ public class VaccinationRequestDto {
     //  총 기간(월)
     private int totalPeriod;
     // 동물 이름
-    private String petName;
+    private Pet pet;
 
-    public Vaccination toEntity(User user) {
+    public Vaccination toEntity(User user, Pet pet) {
         return Vaccination.builder()
                 .startDay(startDay)
                 .vaccineType(vaccineType)
                 .vaccineName(vaccineName)
                 .period(period)
                 .totalPeriod(totalPeriod)
-                .petName(petName)
+                .pet(pet)
                 .user(user)
                 .build();
     }
