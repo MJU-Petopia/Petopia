@@ -41,7 +41,7 @@ public class VaccinationController {
 
     // 모든 예방접종 조회
     @GetMapping("/api/vaccination/userId={userId}")
-    public ResponseEntity<?> petsRead(@PageableDefault(size = 3) Pageable pageable, @PathVariable int userId){
+    public ResponseEntity<?> petsRead(@PageableDefault Pageable pageable, @PathVariable int userId){
         Page<Vaccination> vaccinations = vaccinationService.vaccinationsRead(pageable, userId);
         return new ResponseEntity<>(new CMRespDto<>(1, "조회 성공", vaccinations), HttpStatus.OK);
     }
