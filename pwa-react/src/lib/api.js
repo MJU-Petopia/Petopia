@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+// AI 파트
+export const getResult = data => axios.post('http://127.0.0.1:8000/predict', data, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
 // 일정 등록 파트
 export const addSchedule = (userid, petid, data) => axios.post(`http://localhost:8080/api/vaccination/userId=${userid}/petId=${petid}`, data);
 export const getScheduleList = id => axios.get(`http://localhost:8080/api/vaccination/userId=${id}`);
