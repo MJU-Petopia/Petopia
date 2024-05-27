@@ -1,18 +1,31 @@
 import { connect } from "react-redux"
-import { onBodypartChanged, onSpeciesChanged, onFileChanged} from "../modules/AIdiagnosis"
+import { onBodypartChanged, onSpeciesChanged, onFileChanged, getResultAsync} from "../modules/AIdiagnosis"
 import AIdiagnosisComponent from "../components/AIdiagnosis/AIdiagnosisComponent"
 import { useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 
-const AIdiagnosisContainer = ({species, bodypart, file, onFileChanged, onSpeciesChanged, onBodypartChanged}) => {
+const AIdiagnosisContainer = ({species, bodypart, file, onFileChanged, onSpeciesChanged, onBodypartChanged, getResultAsync}) => {
 
     const navigate = useNavigate();
 
     const onButtonClicked = useCallback(()=> {
         if (file) {
-            navigate('/result')
+            const reader = new FileReader();
+            reader.onload = async () => {
+                const base64Image = reader.result.split(',')[1];
+
+                const data = {
+                    image_base64: base64Image,
+                    category: bodypart,
+                    animal: species,
+                };
+
+                getResultAsync([data]);
+                navigate('/result');
+            }
+        reader.readAsDataURL(file);
         }
-    }, [file, navigate]);
+    }, [file, getResultAsync, bodypart, species]);
 
     const onFileChange = (file) => {
         if (file) {
@@ -38,6 +51,7 @@ export default connect(
     {
         onBodypartChanged,
         onSpeciesChanged,
-        onFileChanged
+        onFileChanged,
+        getResultAsync
     }
 )(AIdiagnosisContainer)

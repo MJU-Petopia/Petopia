@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
 import CustomFileInput from '../CustomComponents/CustomFileInput';
+import cat from '../../images/cat.jpg';
+import dog from '../../images/dog.jpg';
 
 const FlexDiv = styled.div`
     display: flex;
@@ -23,14 +25,14 @@ const AIdiagnosisComponent = ({species, bodypart, file, onSpeciesChange, onBodyp
                     height={120}
                     borderwidth={species ==='dog' ? 2:0}
                     bordercolor={species ==='dog' ? '#3898f2' : 'lightgray'}
-                    backgroundimage={'images/dog.jpg'} 
+                    backgroundimage={dog} 
                     onClick={() => onSpeciesChange('dog')}
                 />
                 <CustomRoundDiv 
                     height={120} 
                     borderwidth={species ==='cat' ? 2:0}
                     bordercolor={species ==='cat' ? '#3898f2' : 'lightgray'}
-                    backgroundimage={'images/cat.jpg'} 
+                    backgroundimage={cat} 
                     onClick={() => onSpeciesChange('cat')}
                 />
             </FlexDiv>

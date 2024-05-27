@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
 import { FaFacebookF } from "react-icons/fa6";
+import logo from '../../images/logo_square.png';
 
 
 const Container = styled.div`
@@ -20,13 +21,19 @@ const Container = styled.div`
         left: 20px;
         top: 15px;
     }
+
+    .applogo {
+        height: 200px;
+        width: 200px;
+        background-color: lightgray;
+    }
 `;
 
 const LoginComponent = () => {
 
     return (
         <Container>
-            <CustomRoundDiv height={200} width={200}/>
+            <img src={logo} className='applogo'/>
             <a href='http://localhost:8080/oauth2/authorization/facebook'>
                 <CustomRoundDiv height={50} width={300} borderradius={25} backgroundcolor={'#1877F2'} position={'relative'} >
                     <FaFacebookF className='logo'/>

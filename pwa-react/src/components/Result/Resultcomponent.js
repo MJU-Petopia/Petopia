@@ -15,7 +15,8 @@ const Container = styled.div`
     height: 100%;
 `;
 
-const Resultcomponent = ({lst, file}) => {
+const Resultcomponent = ({file, lst, result}) => {
+
     return (
         <Container>
             <CustomRoundDiv backgroundimage={URL.createObjectURL(file)} width={'100%'} height={200} />
@@ -26,9 +27,9 @@ const Resultcomponent = ({lst, file}) => {
                 modules={[Navigation, Pagination, A11y, Scrollbar]}
             >
                 <SwiperSlide>
-                    <ResultSummaryItem result={[]}/>
+                    <ResultSummaryItem result={result}/>
                 </SwiperSlide>
-                {lst && lst.map(item => <SwiperSlide key={item.name}><ResultInformationItem disease={item.name} percent={80} reason={item.reason}/></SwiperSlide>)}
+                {result && result.map(([key, value])=> <SwiperSlide key={key}><ResultInformationItem disease={`${key} (${lst[key].name})`} percent={Math.round(value*10000)/100} reason={lst[key].lst}/></SwiperSlide>)}
             </Swiper>
         </Container>
     );

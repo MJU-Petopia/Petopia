@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowBack } from "react-icons/io";
-
+import logo from '../images/logo_rectangle.png';
 const Appbar = styled.div`
     position: fixed;
     z-index: 3;
@@ -26,15 +26,12 @@ const Inner = styled.div`
         position:fixed;
         left: 10px;
     }
-`;
 
-const LogoContainer = styled.div`
-    height: 40px;
-    width: 130px;
-    background-image: url('images/logo_rectangle.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin-left: 10px;
+    .logo {
+        height: 40px;
+        width: 130px;
+        margin-left: 10px;
+    }
 `;
 
 const AppbarComponent = ({isHome, children}) => {
@@ -44,7 +41,7 @@ const AppbarComponent = ({isHome, children}) => {
     return <Appbar>
         {isHome ? 
         <Inner $ishome={isHome}>
-            <LogoContainer />
+            <img className='logo' src={logo}/>
         </Inner> 
         : <Inner $ishome={isHome}>
                 <div className='back'>
