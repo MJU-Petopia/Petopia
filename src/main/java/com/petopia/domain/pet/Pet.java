@@ -56,7 +56,7 @@ public class Pet {
     private User user;
 
     @JsonIgnoreProperties({"pet"})
-    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.REMOVE)
     private List<Vaccination> vaccinations;
 
     private LocalDateTime createDate;
