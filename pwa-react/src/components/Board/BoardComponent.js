@@ -4,7 +4,7 @@ import BoardItem from './BoardItem';
 import { FaPencil } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import LoadingComponent from '../Loading/LoadingComponent';
-
+import jaccardSimilarity from '../../lib/jaccardSimilarity';
 
 const Input = styled.input`
     height: 40px;
@@ -59,11 +59,11 @@ const BoardComponent = ({feedList, search, setSearch, timeCalculator, onAddBtnCl
     return (
         <div style={{margin: '110px 0px 55px 0', height: '50%'}}>
             <InputWrapper>
-                <Input type='text' placeholder='Search..'/>
+                <Input type='text' placeholder='Search..' value={search} onChange={e=> setSearch(e.target.value)}/>
             </InputWrapper>
             <Container>
                 {loadingBoard && <LoadingComponent />}
-                {!loadingBoard && feedList && feedList.map(item => <Link to={`/board/${item.id}`} key={item.id} ><BoardItem feed={item} timeCalculator={timeCalculator} /></Link>)}
+                {!loadingBoard && feedList && feedList.filter(item => search ? jaccardSimilarity(search, item.title) >= 0.5 || jaccardSimilarity(search, item.content) >= 0.5 : item).map(item => <Link to={`/board/${item.id}`} key={item.id} ><BoardItem feed={item} timeCalculator={timeCalculator} /></Link>)}
             </Container>
             <AddBtn onClick={() => onAddBtnClicked()}>
                 <FaPencil />

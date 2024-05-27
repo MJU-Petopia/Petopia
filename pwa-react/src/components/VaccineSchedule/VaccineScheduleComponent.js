@@ -22,21 +22,19 @@ const VaccineScheduleComponent = ({schedule}) => {
         const temp = new Date(start.getTime());
         const end = new Date(temp.setMonth(temp.getMonth() + schedule[i].totalPeriod));
 
-        console.log(schedule[i].period)
         while (start <= end) {
             const data = {
                 date: new Date(start.getTime()),
                 name: schedule[i].pet.name,
                 vaccine_name: schedule[i].vaccineType,
-                pet_id: schedule[i].pet.id
+                pet_id: schedule[i].pet.id,
+                petType: schedule[i].pet.petType,
             }
 
             lst.push(data)
             start.setDate(start.getDate() + schedule[i].period)
         }
     }
-    console.log(lst)
-
     if (lst.length !== 0){
         return (
             <div style={{margin: '125px 0 55px 0'}}>

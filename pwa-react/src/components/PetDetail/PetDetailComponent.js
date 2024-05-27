@@ -8,6 +8,8 @@ import { IoFemale } from "react-icons/io5";
 import { IoPawSharp } from "react-icons/io5";
 import LoadingComponent from '../Loading/LoadingComponent';
 import { useNavigate, useParams } from 'react-router-dom';
+import dog from '../../images/dog_character.jpeg';
+import cat from '../../images/cat_character.png';
 
 
 
@@ -124,7 +126,7 @@ const PetDetailComponent = ({type, name, gender, neutering, kind, birthday, vacc
 
     return !loading ? (
         <Container>
-            <CustomRoundDiv width={90} height={90} borderradius={50} margin={'20px 0 10px 0'}/>
+            <CustomRoundDiv width={90} height={90} borderradius={50} margin={'20px 0 10px 0'} backgroundimage={type === '강아지' ? dog : cat}/>
             <div className='name'>{name}</div>
             <div className='species'>{kind}</div>
             <AdditionalInfoContainer>

@@ -8,6 +8,7 @@ import { IoSend } from "react-icons/io5";
 import { IoMdMore } from "react-icons/io";
 import BoardOverlayComponent from './BoardOverlayComponent';
 import { useNavigate } from 'react-router-dom';
+import profile from '../../images/default_profile.png';
 
 
 const Container = styled.div`
@@ -158,7 +159,7 @@ const BoardDetailComponent = ({commentlist, comment, setComment, overlay, setOve
     return (
         <Container>
             <ProfileWrapper>
-                <CustomRoundDiv height={50} width={50} borderradius={25} margin={'0px 10px 0 0'}/>
+                <CustomRoundDiv height={50} width={50} borderradius={25} margin={'0px 10px 0 0'} backgroundimage={profile}/>
                 <div className='additional'>
                     <div>{feed.user.name}</div>
                     <div>{dateFormatter(feed.createDate)}</div>
@@ -210,7 +211,7 @@ const BoardDetailComponent = ({commentlist, comment, setComment, overlay, setOve
                         },
                         createDate: new Date().getTime()
                     })
-                    window.location.reload();
+                    // window.location.reload();
                 }}>
                     <IoSend />
                 </InputBtn>

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
+import dog from '../../images/dog_character.jpeg';
+import cat from '../../images/cat_character.png';
 
 const Container = styled.div`
     box-sizing: border-box;
@@ -33,7 +35,7 @@ const PetInfoComponent = ({pet, onClick}) => {
 
     return (
         <Container onClick={() => onClick()}>
-            <CustomRoundDiv height={40} width={40} borderradius={20} margin={'0px 0px 5px 0px'}/>
+            <CustomRoundDiv height={40} width={40} borderradius={20} margin={'0px 0px 5px 0px'} backgroundimage={pet.petType === '강아지' ? dog : cat}/>
             <div>{pet.name}</div>
             <div className='additional'>{`${pet.gender === '수컷' ? '♂' : '♀'} ${ageCalculator(pet.birthday)}세`}</div>
         </Container>

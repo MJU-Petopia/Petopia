@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import AppbarComponent from '../../components/AppbarComponent';
 import CustomRoundDiv from '../../components/CustomComponents/CustomRoundDiv';
 import { useNavigate } from 'react-router-dom';
+import dog from '../../images/dog_character.jpeg';
+import cat from '../../images/cat_character.png';
 
 const Container = styled.div`
     display: flex;
@@ -88,7 +90,7 @@ const AddSchedule5Container = ({start_date, end_date, std_term, vaccine_name, pe
                     <span className='data'>{dateFormater(start_date)}</span>
                     <span>접종 대상</span>
                     <div className='petinfo data'>
-                        <CustomRoundDiv margin={'0 5px 0 0'}/>
+                        <CustomRoundDiv margin={'0 5px 0 0'} backgroundimage={petlist.filter(item => item.id === pet_id)[0].petType === '강아지' ? dog : cat}/>
                         <span>{petlist.filter(item => item.id === pet_id)[0].name}</span>
                     </div>
                     <span>접종 종류</span>

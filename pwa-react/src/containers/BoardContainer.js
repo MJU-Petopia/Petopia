@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import BoardComponent from '../components/Board/BoardComponent';
 import { useNavigate } from 'react-router-dom';
+import { onSearchinputChange } from '../modules/Borad';
 
-const BoardContainer = ({feedList, loadingBoard}) => {
-
-    const [search, setSearch] = useState(null);
+const BoardContainer = ({feedList, searchInput, loadingBoard, onSearchinputChange}) => {
 
     const timeCalculator = (time) => {
         const diffMs = Date.now() - time;
@@ -26,8 +25,8 @@ const BoardContainer = ({feedList, loadingBoard}) => {
     return (
         <BoardComponent 
             feedList={feedList} 
-            search={search} 
-            setSearch={setSearch} 
+            search={searchInput} 
+            setSearch={onSearchinputChange} 
             timeCalculator={timeCalculator} 
             onAddBtnClicked={onAddBtnClicked}
             loadingBoard={loadingBoard}
@@ -37,6 +36,8 @@ const BoardContainer = ({feedList, loadingBoard}) => {
 
 export default connect(({Board, Loading}) => ({
     feedList: Board.feedList,
+    searchInput: Board.searchInput,
     loadingBoard: Loading['Board/GET_FEED']
 }),{
+    onSearchinputChange
 })(BoardContainer);
