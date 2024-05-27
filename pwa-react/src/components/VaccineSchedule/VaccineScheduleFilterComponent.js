@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
+import cat from '../../images/cat_character.png';
+import dog from '../../images/dog_character.jpeg';
 
 const Container = styled.div`
     height: 70px;
@@ -30,7 +32,7 @@ const VaccineScheduleFilterComponent = ({petlist, filter_id, onFilterChanged}) =
     return (
         <Container>
             {petlist.length > 0 && petlist.map(pet => <ItemWrapper key={pet.id} $selected={filter_id === pet.id} onClick={() => onFilterChanged(pet.id)}>
-                <CustomRoundDiv height={30} width={30} borderradius={15} />
+                <CustomRoundDiv height={30} width={30} borderradius={15} backgroundimage={pet.petType === '강아지' ? dog : cat}/>
                 <span>{pet.name}</span>
             </ItemWrapper>)}
         </Container>

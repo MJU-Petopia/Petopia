@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv.js'
+import cat from '../../images/cat_character.png';
+import dog from '../../images/dog_character.jpeg';
 
 const ScheduleItem = styled.div`
     display:flex;
@@ -63,7 +65,7 @@ const VaccineScheduleItem = ({schedule}) => {
                 <Flexbox className='pet_info'>
                     <span>{schedule.vaccine_name}</span>
                     <div>
-                        <CustomRoundDiv margin={'0 7px 0 0'}/>
+                        <CustomRoundDiv margin={'0 7px 0 0'} backgroundimage={schedule.petType === '강아지' ? dog : cat}/>
                         <span>{schedule.name}</span>
                     </div>
                 </Flexbox>

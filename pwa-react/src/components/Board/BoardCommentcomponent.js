@@ -4,6 +4,7 @@ import BoardOverlayComponent from './BoardOverlayComponent.js'
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
 import { FaThumbsUp } from "react-icons/fa6";
 import { IoMdMore } from "react-icons/io";
+import profile from '../../images/default_profile.png';
 
 const Container = styled.div`
     padding: 5px 0;
@@ -80,7 +81,7 @@ const BoardCommentcomponent = ({dateFormmater, comment, onDeleteClicked}) => {
         <Container>
             <div className='header'>
                 <div className='profile_part'>
-                    <CustomRoundDiv height={18} width={18} borderradius={10} margin={'0 5px 0 0'}/>
+                    <CustomRoundDiv height={18} width={18} borderradius={10} margin={'0 5px 0 0'} backgroundimage={profile}/>
                     <div className='name'>{comment.user.name}</div>
                     <div className='date'>{dateFormmater(comment.createDate)}</div>
                 </div>

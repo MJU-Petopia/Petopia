@@ -19,7 +19,7 @@ const Resultcomponent = ({file, lst, result}) => {
 
     return (
         <Container>
-            <CustomRoundDiv backgroundimage={URL.createObjectURL(file)} width={'100%'} height={200} />
+            <CustomRoundDiv backgroundimage={URL.createObjectURL(file)} width={'100%'} height={150} margin={'0 15px 0 15px'}/>
             <Swiper
                 slidesPerView={1}
                 loop={false}
@@ -29,7 +29,7 @@ const Resultcomponent = ({file, lst, result}) => {
                 <SwiperSlide>
                     <ResultSummaryItem result={result}/>
                 </SwiperSlide>
-                {result && result.map(([key, value])=> <SwiperSlide key={key}><ResultInformationItem disease={`${key} (${lst[key].name})`} percent={Math.round(value*10000)/100} reason={lst[key].lst}/></SwiperSlide>)}
+                {result && result.map(([key, value])=> <SwiperSlide key={key}><ResultInformationItem disease={key} percent={Math.round(value*10000)/100} reason={lst[key].lst} symptom={lst[key].symptom} cure={lst[key].cure}/></SwiperSlide>)}
             </Swiper>
         </Container>
     );

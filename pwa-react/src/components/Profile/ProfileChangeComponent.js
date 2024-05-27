@@ -52,7 +52,7 @@ const ProfileChangeComponent = ({ name, phone, email, profileIMG, setName, setPh
     return (
         <Container>
             <div className='middle_wrapper'>
-                <CustomProfileImageInput width={100} height={100} file={profileIMG} onChange={e=>changeProfileImage(e.target.files[0])}/>
+                <CustomProfileImageInput width={100} height={100} file={profileIMG} onChange={changeProfileImage}/>
             </div>
             <div className='title'>
                 이름<span className='necessary'>*</span>

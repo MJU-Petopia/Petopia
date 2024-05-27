@@ -13,6 +13,7 @@ const DELETE_COMMENT = 'Board/DELETE_COMMENT';
 const ADD_COMMENT_ACTION = 'Board/ADD_COMMENT_ACTION';
 const DELETE_COMMENT_ACTION = 'Board/DELETE_COMMENT_ACTION';
 const ON_INPUT_CHANGE = 'Board/ON_INPUT_CHANGE';
+const ON_SEARCHINPUT_CHANGE = 'Board/ON_SEARCHINPUT_CHANGE';
 
 export const getFeedAsync = createRequestThunk(GET_FEED, getBoard)
 export const getFeedDetailAsync = createRequestThunk(GET_FEED_DETAIL, getBoardDetail);
@@ -23,12 +24,14 @@ export const deleteCommentAsync = createRequestThunk(DELETE_COMMENT, deleteComme
 export const addCommentAction =createAction(ADD_COMMENT_ACTION, data => data);
 export const deleteCommentAction = createAction(DELETE_COMMENT_ACTION, id => id);
 export const onInputChange = createAction(ON_INPUT_CHANGE, input => input)
+export const onSearchinputChange = createAction(ON_SEARCHINPUT_CHANGE, input => input)
 
 const initialstate = {
     feedList: [],
     feed: null,
     comments: [],
-    input: ''
+    input: '',
+    searchInput: ''
 }
 
 const Board = handleActions(
@@ -54,6 +57,10 @@ const Board = handleActions(
         [DELETE_COMMENT_ACTION]: (state, action) => ({
             ...state,
             comments: state.comments.filter(comment => comment.id !== action.payload)
+        }),
+        [ON_SEARCHINPUT_CHANGE]: (state, action) => ({
+            ...state,
+            searchInput: action.payload,
         })
     }, initialstate
 )

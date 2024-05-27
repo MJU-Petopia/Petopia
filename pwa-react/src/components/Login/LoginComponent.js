@@ -37,7 +37,7 @@ const LoginComponent = () => {
             <a href='http://localhost:8080/oauth2/authorization/facebook'>
                 <CustomRoundDiv height={50} width={300} borderradius={25} backgroundcolor={'#1877F2'} position={'relative'} >
                     <FaFacebookF className='logo'/>
-                    Facebook Singin
+                    Facebook Signin
                 </CustomRoundDiv>
             </a>
         </Container>

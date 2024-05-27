@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import CustomRoundDiv from '../../components/CustomComponents/CustomRoundDiv';
 import { useNavigate } from 'react-router-dom';
 import { IoMdCheckmark } from "react-icons/io";
+import dog from '../../images/dog_character.jpeg';
+import cat from '../../images/cat_character.png';
 
 
 const Container = styled.div`
@@ -89,7 +91,7 @@ const AddSchedule2Container = ({pet_id, onPetChanged, petlist}) => {
 const PetItem = ({pet, pet_id, petlist, onClick}) => {
     return <ItemWrapper onClick={() => onClick(pet.id)}>
         <div style={{display: 'inline-flex'}}>
-            <CustomRoundDiv margin={'0 8px 0 0'}/>
+            <CustomRoundDiv margin={'0 8px 0 0'} backgroundimage={pet.petType === '강아지' ? dog : cat}/>
             {petlist.filter(item => item.id === pet.id)[0].name}            
         </div>
         <IoMdCheckmark className={pet.id === pet_id ? 'active' : 'deactive'}/>

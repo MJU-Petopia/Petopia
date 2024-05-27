@@ -4,6 +4,7 @@ import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
 import PetInfoComponent from './PetInfoComponent';
 import PetAddBtnComponent from './PetAddBtnComponent';
 import { useNavigate } from 'react-router-dom';
+import profile from '../../images/default_profile.png';
 
 const Container = styled.div`
     padding: 55px 0px;
@@ -82,7 +83,7 @@ const ProfileComponent = ({name, email, petList, deleteUserAsync}) => {
     return (
         <Container>
             <ProfileWrapper>
-                <CustomRoundDiv width={50} height={50} borderradius={25} />
+                <CustomRoundDiv width={50} height={50} borderradius={25} backgroundimage={profile}/>
                 <div className='profileinfo'>
                     <span>{name}</span>
                     <span>{email}</span>
@@ -101,9 +102,22 @@ const ProfileComponent = ({name, email, petList, deleteUserAsync}) => {
             </OtherInfoWrapper>
             <OtherInfoWrapper>
                 <div className='title'>회원정보</div>
-                <a href='http://localhost:8080/logout'className='add sign'><div>로그아웃</div></a>
+                <div className='sign' onClick={() => {
+                    window.sessionStorage.removeItem('id');
+                    window.sessionStorage.removeItem('phone');
+                    window.sessionStorage.removeItem('name');
+                    window.sessionStorage.removeItem('gender');
+                    window.sessionStorage.removeItem('email');
+                    window.location.replace('http://localhost:8080/logout')
+                }}>로그아웃</div>
                 <div className='sign' onClick={async () => {
-                    await deleteUserAsync(window.sessionStorage.getItem('id'))
+                    const id = window.sessionStorage.getItem('id');
+                    window.sessionStorage.removeItem('id');
+                    window.sessionStorage.removeItem('phone');
+                    window.sessionStorage.removeItem('name');
+                    window.sessionStorage.removeItem('gender');
+                    window.sessionStorage.removeItem('email');
+                    await deleteUserAsync(id)
                 }}>회원탈퇴</div>
             </OtherInfoWrapper>
         </Container>

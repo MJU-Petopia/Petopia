@@ -21,14 +21,16 @@ const ResultContainer = ({species, bodypart, file, result, loading,resetting}) =
             resetting();
         }
     },[]) 
-
     if (!loading && result) {
+
+        Object.entries(result).map(([key, value]) => console.log(`${key}: ${lst[key]}`))
         return (
             <Resultcomponent file={file} lst={lst} result={Object.entries(result).sort((a,b) => b[1]- a[1])}/>
         );
     } else {
         return <LoadingComponent />
     }
+    return true;
 };
 
 export default connect(

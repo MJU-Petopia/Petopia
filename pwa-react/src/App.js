@@ -37,7 +37,6 @@ const App = () => {
         gender: gender,
         phone: phone
       }));
-      navigate(-1)
     }
   },[])
 

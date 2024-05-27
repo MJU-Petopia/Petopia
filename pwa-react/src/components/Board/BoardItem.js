@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CustomRoundDiv from '../CustomComponents/CustomRoundDiv';
+import profile from '../../images/default_profile.png';
 
 const Container = styled.div`
     color: gray;
@@ -41,7 +42,7 @@ const BoardItem = ({feed, timeCalculator}) => {
             <div className='content'>{feed.content}</div>
             <div className='additional'>
                 <div className='time'>{timeCalculator(new Date(feed.createDate))}</div>
-                <CustomRoundDiv margin={'0 8px 0 0'}/>
+                <CustomRoundDiv margin={'0 8px 0 0'} backgroundimage={profile}/>
                 <span>{feed.user.name}</span>
             </div>
         </Container>
